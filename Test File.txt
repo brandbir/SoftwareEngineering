@@ -1,3 +1,9 @@
-Test file for Testing this shared Repository
+﻿Test file for Testing this shared Repository
 
+<<<<<<< HEAD
 Updatingg
+=======
+Updatingg…..
+
+Done
+>>>>>>> FETCH_HEAD
