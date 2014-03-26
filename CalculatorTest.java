@@ -8,7 +8,7 @@ public class CalculatorTest {
 	@Test
 	public void test1() {
 		Calculator calcTest = new Calculator();
-		assertEquals("2+1 = 3",3, calcTest.add(2, 1));//if it fails the message will be outputted in the failure trace
+		assertEquals("2+5 = 7",7, calcTest.add(2, 5));//if it fails the message will be outputted in the failure trace
 	}
 	@Test
 	public void test2() {
