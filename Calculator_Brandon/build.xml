@@ -24,6 +24,7 @@
 	
 	<target name="init">
 		<mkdir dir="build"/>
+		<mkdir dir="external/report"/>
 		<copy includeemptydirs="false" todir="build">
 			<fileset dir="src">
 				<exclude name="**/*.java"/>
