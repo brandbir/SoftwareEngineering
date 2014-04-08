@@ -1,38 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
-	<project basedir="." default="build" name="Calculator_Brandon">
+<project basedir="." default="build" name="Calculator_Brandon">
+	
 	<property environment="env"/>
 	<property name="junit.output.dir" value="external/report"/>
 	<property name="debuglevel" value="source,lines,vars"/>
-	<property name="target" value="1.7"/>
-	<property name="source" value="1.7"/>
 	
+	<property name="source" value="1.7"/>
+	<property name="coverage.dir" value="external/emma/coverage" />
+	<property file="build.properties"/>
+	
+
+	
+	<property name="instr.target" location="${target.dir}/instr-classes" />
 	<path id="JUnit 4.libraryclasspath">
 		<pathelement location="external/jars/junit.jar"/>
 		<pathelement location="external/jars/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
 	</path>
+
 	
+	
+	<!-- directory that contains emma.jar and emma_ant.jar: -->
+	<property name="emma.dir" value="external/jars" />
+
+	<path id="emma.lib" >
+		<pathelement location="external/jars/emma.jar" />
+		<pathelement location="external/jars/emma_ant.jar" />
+	</path>
+
+
 	<path id="Calculator_Brandon.classpath">
 		<pathelement location="build"/>
 		<path refid="JUnit 4.libraryclasspath"/>
 	</path>
-	
+
 	<path id="run.CalculatorTest.bootclasspath">
 		<fileset dir="${java.home}/lib" includes="*.jar"/>
 		<fileset dir="${java.home}/lib/ext" includes="*.jar"/>
 	</path>
-	
+
 	<target name="init">
 		<mkdir dir="build"/>
+		<mkdir dir="external/report"/>
 		<copy includeemptydirs="false" todir="build">
 			<fileset dir="src">
 				<exclude name="**/*.java"/>
 			</fileset>
 		</copy>
+		<path id="run.classpath">
+			<pathelement location="build/tests"/>
+		</path>
 	</target>
+	
 	<target name="clean">
 		<delete dir="build"/>
 	</target>
+	
 	<target depends="clean" name="cleanall"/>
 	<target depends="build-subprojects,build-project" name="build"/>
 	<target name="build-subprojects"/>
@@ -44,21 +67,7 @@
 		</javac>
 	</target>
 	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-	
-	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-		<copy todir="${ant.library.dir}">
-			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-		</copy>
-		<unzip dest="${ant.library.dir}">
-			<patternset includes="jdtCompilerAdapter.jar"/>
-			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-		</unzip>
-	</target>
-	<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-		<antcall target="build"/>
-	</target>
-	
+
 	<target name="CalculatorTest">
 		<mkdir dir="${junit.output.dir}"/>
 		<junit fork="yes" printsummary="withOutAndErr">
@@ -71,24 +80,25 @@
 		</junit>
 	</target>
 
+	
 
 	<target name="junitreport" >
-			<junit printsummary="yes" haltonfailure="no">
-				<classpath>
-					<pathelement location="build"/>
-					<fileset dir="external/jars">
-						<include name="*.jar"/>
-					</fileset>
-				</classpath>
-				
-				<formatter type="plain"/>
-				<formatter type="xml"/>
-		
-				<batchtest fork="yes" todir="${junit.output.dir}">
-					<fileset dir="build">
-						<include name="tests/CalculatorTest.class"/>
-					</fileset>
-				</batchtest>
-			</junit>
-		</target>
+		<junit printsummary="yes" haltonfailure="no">
+			<classpath>
+				<pathelement location="build"/>
+				<fileset dir="external/jars">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+
+			<formatter type="plain"/>
+			<formatter type="xml"/>
+
+			<batchtest fork="yes" todir="${junit.output.dir}">
+				<fileset dir="build">
+					<include name="tests/*.class"/>
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
 </project>
