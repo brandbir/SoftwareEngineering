@@ -100,7 +100,7 @@
 	<target name="run"  description="Coverage Reports" >
 		<emmajava enabled="${emma.enabled}" libclasspathref="emma.lib" 
 		              fullmetadata="yes" sourcepath="${src.dir}"
-		              classname="tests/CalculatorTest"
+		              classname="CalculatorTest"
 		              classpathref="run.classpath">
 
 			<txt outfile="${coverage.dir}/coverage.txt" />
