@@ -12,6 +12,16 @@
 		<pathelement location="external/jars/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
 	</path>
 	
+	<!-- directory that contains emma.jar and emma_ant.jar: -->
+  <property name="emma.dir" value="external/jars" />
+
+  <path id="emma.lib" >
+    <pathelement location="external/jars/emma.jar" />
+    <pathelement location="external/jars/emma_ant.jar" />
+  </path>
+
+  <taskdef resource="emma_ant.properties" classpathref="emma.lib" />
+	
 	<path id="Calculator_Brandon.classpath">
 		<pathelement location="build"/>
 		<path refid="JUnit 4.libraryclasspath"/>
@@ -21,6 +31,8 @@
 		<fileset dir="${java.home}/lib" includes="*.jar"/>
 		<fileset dir="${java.home}/lib/ext" includes="*.jar"/>
 	</path>
+	
+	
 	
 	<target name="init">
 		<mkdir dir="build"/>
@@ -71,6 +83,18 @@
 			</bootclasspath>
 		</junit>
 	</target>
+	
+	<target name="emma" description="turns on EMMA's on-the-fly instrumentation mode" >
+    <property name="emma.enabled" value="true" />
+     </target>
+
+  <target name="run" description="runs the examples" >
+    <emmajava enabled="${emma.enabled}" libclasspathref="emma.lib" 
+              classname="Main"
+              classpathref="run.classpath"
+    >
+    </emmajava>
+  </target>
 
 
 	<target name="junitreport" >
@@ -93,3 +117,19 @@
 			</junit>
 		</target>
 </project>
+
+
+	 <!-- output directory used for EMMA coverage reports: -->
+  <property name="coverage.dir" value="external/coverage" />
+
+  <target name="run"  description="runs the examples" >
+    <emmajava enabled="${emma.enabled}" libclasspathref="emma.lib" 
+              fullmetadata="yes" sourcepath="${src.dir}"
+              classname="Main"
+              classpathref="run.classpath"
+    >
+      <txt outfile="${coverage.dir}/coverage.txt" />
+      <xml outfile="${coverage.dir}/coverage.xml" />
+      <html outfile="${coverage.dir}/coverage.html"  />
+    </emmajava>
+  </target>
