@@ -120,7 +120,7 @@
 
 
 	 <!-- output directory used for EMMA coverage reports: -->
-  <property name="coverage.dir" value="external/coverage" />
+  <property name="coverage.dir" value="external/emma/coverage" />
 
   <target name="run"  description="runs the examples" >
     <emmajava enabled="${emma.enabled}" libclasspathref="emma.lib" 
