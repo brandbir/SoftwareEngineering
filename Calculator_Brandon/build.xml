@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. -->
-<project basedir="." default="build" name="Calculator_Brandon">
+
+	<project basedir="." default="build" name="Calculator_Brandon">
 	<property environment="env"/>
-	<property name="ECLIPSE_HOME" value="../../../eclipse"/>
-	<property name="junit.output.dir" value="junit"/>
+	<property name="junit.output.dir" value="external/report"/>
 	<property name="debuglevel" value="source,lines,vars"/>
 	<property name="target" value="1.7"/>
 	<property name="source" value="1.7"/>
+	
 	<path id="JUnit 4.libraryclasspath">
 		<pathelement location="external/jars/junit.jar"/>
 		<pathelement location="external/jars/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
 	</path>
+	
 	<path id="Calculator_Brandon.classpath">
-		<pathelement location="bin"/>
+		<pathelement location="build"/>
 		<path refid="JUnit 4.libraryclasspath"/>
 	</path>
-	<path id="run.CalculatorTest (1).bootclasspath">
+	
+	<path id="run.CalculatorTest.bootclasspath">
 		<fileset dir="${java.home}/lib" includes="*.jar"/>
 		<fileset dir="${java.home}/lib/ext" includes="*.jar"/>
 	</path>
+	
 	<target name="init">
-		<mkdir dir="bin"/>
-		<copy includeemptydirs="false" todir="bin">
+		<mkdir dir="build"/>
+		<copy includeemptydirs="false" todir="build">
 			<fileset dir="src">
 				<exclude name="**/*.java"/>
 			</fileset>
 		</copy>
 	</target>
 	<target name="clean">
-		<delete dir="bin"/>
+		<delete dir="build"/>
 	</target>
 	<target depends="clean" name="cleanall"/>
 	<target depends="build-subprojects,build-project" name="build"/>
 	<target name="build-subprojects"/>
 	<target depends="init" name="build-project">
 		<echo message="${ant.project.name}: ${ant.file}"/>
-		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+		<javac debug="true" debuglevel="${debuglevel}" destdir="build" includeantruntime="false" source="${source}" target="${target}">
 			<src path="src"/>
 			<classpath refid="Calculator_Brandon.classpath"/>
 		</javac>
 	</target>
 	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+	
 	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
 		<copy todir="${ant.library.dir}">
 			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
@@ -58,35 +58,37 @@
 		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
 		<antcall target="build"/>
 	</target>
-	<target name="CalculatorTest (1)">
+	
+	<target name="CalculatorTest">
 		<mkdir dir="${junit.output.dir}"/>
 		<junit fork="yes" printsummary="withOutAndErr">
 			<formatter type="xml"/>
 			<test name="CalculatorTest" todir="${junit.output.dir}"/>
 			<classpath refid="Calculator_Brandon.classpath"/>
 			<bootclasspath>
-				<path refid="run.CalculatorTest (1).bootclasspath"/>
+				<path refid="run.CalculatorTest.bootclasspath"/>
 			</bootclasspath>
 		</junit>
 	</target>
 
 
 	<target name="junitreport" >
-		<junit printsummary="yes" haltonfailure="yes">
-			<classpath>
-				<pathelement location="${project.class.path}"/>
-				<pathelement location="${build.tests}"/>
-				<pathelement path="${java.class.path}"/>
-			</classpath>
-	
-			<formatter type="plain"/>
-			<formatter type="xml"/>
-	
-			<batchtest fork="yes" todir="${junit.output.dir}">
-				<fileset dir="src/tests">
-					<include name="*.java"/>
-				</fileset>
-			</batchtest>
-		</junit>
-	</target>
+			<junit printsummary="yes" haltonfailure="no">
+				<classpath>
+					<pathelement location="build"/>
+					<fileset dir="external/jars">
+						<include name="*.jar"/>
+					</fileset>
+				</classpath>
+				
+				<formatter type="plain"/>
+				<formatter type="xml"/>
+		
+				<batchtest fork="yes" todir="${junit.output.dir}">
+					<fileset dir="build">
+						<include name="tests/CalculatorTest.class"/>
+					</fileset>
+				</batchtest>
+			</junit>
+		</target>
 </project>
