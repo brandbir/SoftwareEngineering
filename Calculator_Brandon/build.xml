@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
-	<project basedir="." default="build" name="Calculator_Brandon">
+<project basedir="." default="build" name="Calculator_Brandon">
 	<property environment="env"/>
 	<property name="junit.output.dir" value="external/report"/>
 	<property name="debuglevel" value="source,lines,vars"/>
 	<property name="target" value="1.7"/>
 	<property name="source" value="1.7"/>
-	
+	<property name="coverage.dir" value="external/emma/coverage" />
+
 	<path id="JUnit 4.libraryclasspath">
 		<pathelement location="external/jars/junit.jar"/>
 		<pathelement location="external/jars/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
 	</path>
-	
+
 	<!-- directory that contains emma.jar and emma_ant.jar: -->
-  <property name="emma.dir" value="external/jars" />
+	<property name="emma.dir" value="external/jars" />
 
-  <path id="emma.lib" >
-    <pathelement location="external/jars/emma.jar" />
-    <pathelement location="external/jars/emma_ant.jar" />
-  </path>
+	<path id="emma.lib" >
+		<pathelement location="external/jars/emma.jar" />
+		<pathelement location="external/jars/emma_ant.jar" />
+	</path>
 
-  <taskdef resource="emma_ant.properties" classpathref="emma.lib" />
-	
+	<taskdef resource="emma_ant.properties" classpathref="emma.lib" />
+
 	<path id="Calculator_Brandon.classpath">
 		<pathelement location="build"/>
 		<path refid="JUnit 4.libraryclasspath"/>
 	</path>
-	
+
 	<path id="run.CalculatorTest.bootclasspath">
 		<fileset dir="${java.home}/lib" includes="*.jar"/>
 		<fileset dir="${java.home}/lib/ext" includes="*.jar"/>
 	</path>
-	
-	
-	
+
 	<target name="init">
 		<mkdir dir="build"/>
 		<mkdir dir="external/report"/>
@@ -42,7 +41,11 @@
 				<exclude name="**/*.java"/>
 			</fileset>
 		</copy>
+		<path id="run.classpath">
+			<pathelement location="build"/>
+		</path>
 	</target>
+	
 	<target name="clean">
 		<delete dir="build"/>
 	</target>
@@ -57,21 +60,7 @@
 		</javac>
 	</target>
 	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-	
-	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-		<copy todir="${ant.library.dir}">
-			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-		</copy>
-		<unzip dest="${ant.library.dir}">
-			<patternset includes="jdtCompilerAdapter.jar"/>
-			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-		</unzip>
-	</target>
-	<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-		<antcall target="build"/>
-	</target>
-	
+
 	<target name="CalculatorTest">
 		<mkdir dir="${junit.output.dir}"/>
 		<junit fork="yes" printsummary="withOutAndErr">
@@ -83,42 +72,46 @@
 			</bootclasspath>
 		</junit>
 	</target>
-	
+
 	<target name="emma" description="turns on EMMA's on-the-fly instrumentation mode" >
-    <property name="emma.enabled" value="true" />
-     </target>
-
-  <target name="run" description="runs the examples" >
-    <emmajava enabled="${emma.enabled}" libclasspathref="emma.lib" 
-              classname="Main"
-              classpathref="run.classpath"
-    >
-    </emmajava>
-  </target>
-
+		<property name="emma.enabled" value="true" />
+	</target>
 
 	<target name="junitreport" >
-			<junit printsummary="yes" haltonfailure="no">
-				<classpath>
-					<pathelement location="build"/>
-					<fileset dir="external/jars">
-						<include name="*.jar"/>
-					</fileset>
-				</classpath>
-				
-				<formatter type="plain"/>
-				<formatter type="xml"/>
-		
-				<batchtest fork="yes" todir="${junit.output.dir}">
-					<fileset dir="build">
-						<include name="tests/CalculatorTest.class"/>
-					</fileset>
-				</batchtest>
-			</junit>
-		</target>
+		<junit printsummary="yes" haltonfailure="no">
+			<classpath>
+				<pathelement location="build"/>
+				<fileset dir="external/jars">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+
+			<formatter type="plain"/>
+			<formatter type="xml"/>
+
+			<batchtest fork="yes" todir="${junit.output.dir}">
+				<fileset dir="build">
+					<include name="tests/CalculatorTest.class"/>
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+	<target name="run"  description="Coverage Reports" >
+		<emmajava enabled="${emma.enabled}" libclasspathref="emma.lib" 
+		              fullmetadata="yes" sourcepath="${src.dir}"
+		              classname="CalculatorTest"
+		              classpathref="run.classpath">
+
+			<txt outfile="${coverage.dir}/coverage.txt" />
+			<xml outfile="${coverage.dir}/coverage.xml" />
+			<html outfile="${coverage.dir}/coverage.html"  />
+		</emmajava>
+	</target>
 </project>
 
 
+<<<<<<< HEAD
 	 <!-- output directory used for EMMA coverage reports: -->
   <property name="coverage.dir" value="external/emma/coverage" />
 
@@ -133,3 +126,6 @@
       <html outfile="${coverage.dir}/coverage.html"  />
     </emmajava>
   </target>
+=======
+
+>>>>>>> FETCH_HEAD
