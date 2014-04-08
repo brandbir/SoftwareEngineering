@@ -7,7 +7,7 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Sample Assignment Template</name>
+  <name>BirminghamSammut Assignment Template</name>
   <url>http://www.um.edu.mt/ict/cs/pest</url>
 
   <dependencies>
