@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CalculatorTest {
+public class TestCalculator {
     
 	@Test
 	public void test1() {
