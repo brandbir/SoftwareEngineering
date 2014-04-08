@@ -11,7 +11,7 @@ public class TestCalculator {
 	@Test
 	public void test1() {
 		Calculator calcTest = new Calculator();
-		assertEquals("2+2 = 4",4, calcTest.add(2, 2));//if it fails the message will be outputted in the failure trace
+		assertEquals("3+2 = 5",4, calcTest.add(3, 2));//if it fails the message will be outputted in the failure trace
 	}
 	@Test
 	public void test2() {
