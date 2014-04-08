@@ -5,27 +5,28 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CalculatorTest {
-    
-	@Test
-	public void test1() {
-		Calculator calcTest = new Calculator();
-		assertEquals("3+1 = 5",5, calcTest.add(10, 8));//if it fails the message will be outputted in the failure trace
+public class TestCalculator {
+
+	Calculator calc;
+	
+	@Before
+	public void setUp() throws Exception {
+		calc = new Calculator();
 	}
+
 	@Test
-	public void test2() {
-		Calculator calcTest = new Calculator();
-		assertEquals("2/0 = -999",-999, calcTest.divide(2, 0));
+	public void testAddPositiveNumbers() {
+		assertEquals(5, calc.add(2, 3));
 	}
+	
 	@Test
-	public void test3() {
-		Calculator calcTest = new Calculator();
-		assertEquals("2*3 = 6",6, calcTest.multiply(2, 3));
+	public void testAddNegativeNumbers() {
+		assertEquals(-6, calc.add(-3, -3));
 	}
+	
 	@Test
-	public void test4() {
-		Calculator calcTest = new Calculator();
-		assertEquals("3-1 = 2",2, calcTest.subtract(3, 1));
+	public void testSubtraction() {
+		assertEquals(5, calc.divide(25, 5));
 	}
-    
+
 }
