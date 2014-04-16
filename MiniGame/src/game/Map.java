@@ -5,19 +5,21 @@ import java.util.Random;
 public class Map
 {
 	static int size;
-	char[][] map;
+	int[][] colorMapping;
+	private String[] mapColors = {"#66BA75", "#949AEF", "#F0E86D"};
 
-	void setMapSize(int size)
+	void setSize(int size)
 	{
-		map = new char[size][size];
+		colorMapping = new int[size][size];
 		Map.size = size;
 	}
 
-	int getsize()
+	int getSize()
 	{
 		return size;
 	}
 
+	//TODO : We need to make sure that there is a valid path to reach the destination tile
 	void generateMap()
 	{
 		Random ran = new Random();
@@ -29,9 +31,9 @@ public class Map
 				int x = ran.nextInt(5);
 				
 				if (x < 3)
-					map[i][j] = 'G';
+					colorMapping[i][j] = 0;
 				else
-					map[i][j] = 'B';
+					colorMapping[i][j] = 1;
 			}
 		}
 
@@ -39,7 +41,7 @@ public class Map
 		int row = ran.nextInt(size);
 		int col = ran.nextInt(size);
 
-		map[row][col] = 'Y';
+		colorMapping[row][col] = 2;
 	}
 
 	void printMap()
@@ -50,7 +52,7 @@ public class Map
 			
 			for (int j = 0; j < size; j++)
 			{
-				System.out.print(map[i][j]);
+				System.out.print(colorMapping[i][j]);
 				System.out.print('|');
 			}
 			
@@ -58,8 +60,9 @@ public class Map
 		}
 	}
 
-	char getTileType(int x, int y)
+	String getTileType(int x, int y)
 	{
-		return map[x][y];
+		return mapColors[colorMapping[x][y]];
 	}
+	
 }

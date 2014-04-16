@@ -2,65 +2,107 @@ package game;
 
 public class Player
 {
-
-	Position player_pos;
-	Map map = new Map();
+	Position position;
 	
-	void move(char direction)
+	public Player()
 	{
-		//TODO Use switch instead of multiple if conditons
-		Position player_pos = new Position();
+		position = new Position();
+	}
+	
+	public void move(char direction)
+	{
+		//TODO Use switch instead of multiple if conditions
+		Position playerPos = new Position();
 		
 		if(direction =='L')
 		{
-			if(player_pos.x_coord >= 0) //adhering to boundaries
-				setPosition(player_pos.x_coord - 1,player_pos.y_coord);
+			if(playerPos.getX() >= 0) //adhering to boundaries
+				setPosition(playerPos.getX() - 1, playerPos.getY());
 		}
 		
 		if(direction == 'R')
 		{
-			if(player_pos.x_coord <= map.getsize())
-				setPosition(player_pos.x_coord + 1, player_pos.y_coord);
+			if(playerPos.getX() <= Game.getMap().getSize())
+				setPosition(playerPos.getX() + 1, playerPos.getY());
 		}
 		
 		if(direction == 'U')
 		{
-			if(player_pos.y_coord >= 0)
-				setPosition(player_pos.x_coord, player_pos.y_coord + 1);
+			if(playerPos.getY() >= 0)
+				setPosition(playerPos.getX(), playerPos.getY() + 1);
 		}
 		
 		if(direction == 'D')
 		{
-			if(player_pos.y_coord <= map.getsize())
-				setPosition(player_pos.x_coord, player_pos.y_coord - 1);
+			if(playerPos.getY() <= Game.getMap().getSize())
+				setPosition(playerPos.getX(), playerPos.getY() - 1);
 		}
 	}
 	
-	boolean setPosition(int x, int y)
+	/**
+	 * Handling Position validation
+	 * @param x new xCoordinate
+	 * @param y new yCoordinate
+	 * @return true if position is valid otherwise
+	 *		   false if position is not valid
+	 */
+	public boolean setPosition(Position p)
 	{
-		Position pos = new Position();
+		boolean set = true;
+		int x = p.getX();
+		int y = p.getY();
 		
-		if(x >= 0 && x < map.getsize())
+		if((x >= 0 && x < Game.getMap().getSize()) && (y >= 0 && y < Game.getMap().getSize()))
 		{
-			pos.x_coord = x;
+			if(Game.getMap().colorMapping[x][y] == 0)
+			{
+				position.setX(x);
+				position.setY(y);
+			}
+			else
+			{
+				set = false;
+			}
+			
 		}
-		
 		else
 		{
-			System.out.println("Out of bounds");
-			return false;
-		}
-		
-		if(y >= 0 && y < map.getsize())
-		{
-			pos.y_coord = y;
-		}
-		else
-		{
-			System.out.println("Out of bounds");
-			return false;
+			set = false;
 		}
 	
-		return true;
+		return set;
+	}
+	
+	//TODO : to be deleted
+	public boolean setPosition(int x, int y)
+	{
+		boolean set = true;
+		
+		if((x >= 0 && x < Game.getMap().getSize()) && (y >= 0 && y < Game.getMap().getSize()))
+		{
+			if(Game.getMap().colorMapping[x][y] == 0)
+			{
+				position.setX(x);
+				position.setY(y);
+			}
+			else
+			{
+				System.out.println("Not Green tile..");
+				set = false;
+			}
+			
+		}
+		else
+		{
+			System.out.println("Outside Map..");
+			set = false;
+		}
+	
+		return set;
+	}
+	
+	public Position getPosition()
+	{
+		return position;
 	}
 }
