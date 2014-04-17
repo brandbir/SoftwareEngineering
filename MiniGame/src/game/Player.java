@@ -11,31 +11,32 @@ public class Player
 	
 	public void move(char direction)
 	{
-		//TODO Use switch instead of multiple if conditions
-		Position playerPos = new Position();
-		
-		if(direction =='L')
+		System.out.println("pos:" + position.getX() + " " + position.getY());
+		switch(direction)
 		{
-			if(playerPos.getX() >= 0) //adhering to boundaries
-				setPosition(playerPos.getX() - 1, playerPos.getY());
-		}
-		
-		if(direction == 'R')
-		{
-			if(playerPos.getX() <= Game.getMap().getSize())
-				setPosition(playerPos.getX() + 1, playerPos.getY());
-		}
-		
-		if(direction == 'U')
-		{
-			if(playerPos.getY() >= 0)
-				setPosition(playerPos.getX(), playerPos.getY() + 1);
-		}
-		
-		if(direction == 'D')
-		{
-			if(playerPos.getY() <= Game.getMap().getSize())
-				setPosition(playerPos.getX(), playerPos.getY() - 1);
+			case 'L':
+				setPosition(position.getX(), position.getY() - 1);
+				System.out.println("new pos:" + position.getX() + " " + position.getY());
+
+				break;
+			
+			case 'R':
+				setPosition(position.getX(), position.getY() + 1);
+				System.out.println("new pos:" + position.getX() + " " + position.getY());
+
+				break;
+			
+			case 'U':
+				setPosition(position.getX() - 1, position.getY());
+				System.out.println("new pos:" + position.getX() + " " + position.getY());
+
+				break;
+			
+			case 'D':
+				setPosition(position.getX() + 1, position.getY());
+				System.out.println("new pos:" + position.getX() + " " + position.getY());
+
+				break;
 		}
 	}
 	
@@ -73,7 +74,8 @@ public class Player
 		return set;
 	}
 	
-	//TODO : to be deleted
+	//TODO : to be deleted in the near future. This method is still being used so make sure that
+	// deletion is performed after the NECESSARY UPDATE
 	public boolean setPosition(int x, int y)
 	{
 		boolean set = true;

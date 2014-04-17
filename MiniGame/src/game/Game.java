@@ -1,7 +1,6 @@
 package game;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +25,6 @@ public class Game
 	public static void main(String args[])
 	{
 		startGame();
-		generateHTMLFiles();
 	}
 	
 	public static Map getMap()
@@ -70,9 +68,15 @@ public class Game
 			}
 		}
 		
+		generateHTMLFiles();
+		
 		for(int i = 0; i < players.size(); i++)
 		{
-			System.out.println(players.get(i).position.getX() + " " + players.get(i).position.getY());
+			// Get input from each user
+		
+			System.out.print("Player " + i + ": ");
+			char direction = keyboard.next().charAt(0);
+			players.get(i).move(direction);
 		}
 
 		return true;
@@ -80,7 +84,7 @@ public class Game
 
 	private static void generateHTMLFiles()
 	{
-		deleteFiles("external\\maps");
+		Misc.deleteFiles("external\\maps");
 		
 		for(int i = 1; i < getPlayers() + 1; i++)
 		{
@@ -146,23 +150,5 @@ public class Game
 		setNumPlayers();
 	}
 	
-	/**
-	 * Deletes all files found inside a particular folder
-	 * @param path folder path
-	 */
-	private static void deleteFiles(String path)
-	{
-		File folder = new File(path);
-		String[] subFiles;
-		
-		if (folder.isDirectory())
-		{
-			subFiles = folder.list();
-			for (int i = 0; i < subFiles.length; i++)
-			{
-				File file = new File(folder, subFiles[i]);
-				file.delete();
-			}
-		}
-	}
+	
 }
