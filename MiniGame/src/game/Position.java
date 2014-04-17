@@ -10,7 +10,6 @@ public class Position
 	{
 		
 	}
-	
 	public Position(int xCoordinate, int yCoordinate)
 	{
 		x = xCoordinate;
@@ -35,6 +34,16 @@ public class Position
 	public int getY()
 	{
 		return y;
+	}
+	
+	public void setPosition(int xCoordinate, int yCoordinate)
+	{
+		x = xCoordinate;
+		y = yCoordinate;
+	}
+	public Position getPosition()
+	{
+		return new Position(x, y);
 	}
 	
 	/**

@@ -41,7 +41,7 @@ public class Game
 		int numOfPlayers = keyboard.nextInt();
 		for(int i = 0; i < numOfPlayers; i++)
 		{
-			players.add(new Player());
+			players.add(new Player(i + 1));
 		}
 		
 		handlingPlayerEvents();
@@ -52,7 +52,7 @@ public class Game
 		return players.size();
 	}
 	
-	private static boolean handlingPlayerEvents()
+	private static void handlingPlayerEvents()
 	{
 		// generating random position
 		Random ran = new Random();
@@ -62,7 +62,7 @@ public class Game
 			Player player = players.get(i);
 			
 			// Get random position for each particular player
-			while(!player.setPosition(new Position(ran.nextInt(map.getSize()), ran.nextInt(map.getSize()))))
+			while(player.setPosition(new Position(ran.nextInt(map.getSize()), ran.nextInt(map.getSize()))) != Map.TILE_GRASS)
 			{
 				// Setting a valid position
 			}
@@ -70,16 +70,33 @@ public class Game
 		
 		generateHTMLFiles();
 		
-		for(int i = 0; i < players.size(); i++)
+		while(getPlayers() > 0)
 		{
-			// Get input from each user
-		
-			System.out.print("Player " + i + ": ");
-			char direction = keyboard.next().charAt(0);
-			players.get(i).move(direction);
+			for(int i = 0; i < players.size(); i++)
+			{
+				// Get input from each user
+				System.out.print("Player " + players.get(i).getNumber() + ": ");
+				char direction = keyboard.next().charAt(0);
+				int nextTile = players.get(i).move(direction);
+				
+				if(nextTile == Map.TILE_WATER)
+				{
+					System.out.println("Oops you fell in the water... You Lost :(");
+					players.remove(i);
+				}
+				
+				else if(nextTile == Map.TILE_TRES)
+				{
+					System.out.println("Congratulations, you have found the treasure");
+					players.removeAll(players);
+				}
+				
+				else if(nextTile == Map.TILE_INVALID)
+				{
+					System.out.println("Invalid Direction");
+				}
+			}
 		}
-
-		return true;
 	}
 
 	private static void generateHTMLFiles()
@@ -95,6 +112,12 @@ public class Game
 				w.write("<html>\n");
 				w.write("\t<head>\n");
 				w.write("\t\t<title>MinGame Map</title>\n");
+				w.write("\t\t<script>\n");
+				w.write("\t\t\tvar timer;\n");
+				w.write("\t\t\tfunction refreshmypage(){\n");
+				w.write("\t\t\tdocument.location=document.location.href;}\n");
+				w.write("\t\t\ttimer=setTimeout(refreshmypage,1000)\n"); 
+				w.write("\t\t</script>\n");
 				w.write("\t</head>\n");
 				w.write("\t<body>\n");
 				w.write("\t\t<table style='width:40%; margin-left:auto; margin-right:auto'>\n");
@@ -102,7 +125,7 @@ public class Game
 				w.write("\t\t\t\t<td colspan='" + map.getSize());
 				w.write("' style='font-size:20px; text-align:center; font-style:italic'> miniGame - Player ");
 				w.write(i + " </td>\n");
-				w.write("\t\t\t</tr>");
+				w.write("\t\t\t</tr>\n");
 				
 				for(int row = 0; row < map.getSize(); row++ )
 				{

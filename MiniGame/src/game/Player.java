@@ -2,41 +2,46 @@ package game;
 
 public class Player
 {
-	Position position;
+	private Position position;
+	private int number;
 	
+	/**
+	 * Default Player Constructor
+	 */
 	public Player()
 	{
 		position = new Position();
 	}
 	
-	public void move(char direction)
+	/**
+	 * Player Constructor with a particular number
+	 * @param number - identification number
+	 */
+	public Player(int num)
 	{
-		System.out.println("pos:" + position.getX() + " " + position.getY());
+		number = num;
+		position = new Position();
+
+	}
+	
+	public int move(char direction)
+	{
 		switch(direction)
 		{
 			case 'L':
-				setPosition(position.getX(), position.getY() - 1);
-				System.out.println("new pos:" + position.getX() + " " + position.getY());
-
-				break;
+				return setPosition(new Position(position.getX(), position.getY() - 1));
 			
 			case 'R':
-				setPosition(position.getX(), position.getY() + 1);
-				System.out.println("new pos:" + position.getX() + " " + position.getY());
-
-				break;
+				return setPosition(new Position(position.getX(), position.getY() + 1));
 			
 			case 'U':
-				setPosition(position.getX() - 1, position.getY());
-				System.out.println("new pos:" + position.getX() + " " + position.getY());
-
-				break;
+				return setPosition(new Position(position.getX() - 1, position.getY()));
 			
 			case 'D':
-				setPosition(position.getX() + 1, position.getY());
-				System.out.println("new pos:" + position.getX() + " " + position.getY());
-
-				break;
+				return setPosition(new Position(position.getX() + 1, position.getY()));
+			
+			default:
+				return Map.TILE_INVALID;
 		}
 	}
 	
@@ -47,31 +52,41 @@ public class Player
 	 * @return true if position is valid otherwise
 	 *		   false if position is not valid
 	 */
-	public boolean setPosition(Position p)
+	public int setPosition(Position p)
 	{
-		boolean set = true;
+		int newPos = Map.TILE_INVALID;
 		int x = p.getX();
 		int y = p.getY();
 		
 		if((x >= 0 && x < Game.getMap().getSize()) && (y >= 0 && y < Game.getMap().getSize()))
 		{
-			if(Game.getMap().colorMapping[x][y] == 0)
+			if(Game.getMap().colorMapping[x][y] == Map.TILE_GRASS)
 			{
 				position.setX(x);
 				position.setY(y);
+				newPos = Map.TILE_GRASS;
 			}
 			else
 			{
-				set = false;
+				if(Game.getMap().colorMapping[x][y] == Map.TILE_TRES)
+				{
+					newPos = Map.TILE_TRES;
+				}
+				else
+				{
+					newPos = Map.TILE_WATER;
+				}
 			}
 			
 		}
 		else
 		{
-			set = false;
+			newPos = Map.TILE_INVALID;
 		}
 	
-		return set;
+		return newPos;
+		
+		
 	}
 	
 	//TODO : to be deleted in the near future. This method is still being used so make sure that
@@ -92,7 +107,6 @@ public class Player
 				System.out.println("Not Green tile..");
 				set = false;
 			}
-			
 		}
 		else
 		{
@@ -106,5 +120,15 @@ public class Player
 	public Position getPosition()
 	{
 		return position;
+	}
+	
+	public void setNumber(int num)
+	{
+		number = num;
+	}
+	
+	public int getNumber()
+	{
+		return number;
 	}
 }
