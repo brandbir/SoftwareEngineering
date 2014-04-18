@@ -49,12 +49,20 @@ public class Game
 		System.out.print("How many players are going to play? : ");
 		int numOfPlayers = keyboard.nextInt();
 		
+		//added for validation purposes
+		while(numOfPlayers < 2 || numOfPlayers > 8)
+		{
+			System.out.println("Please re-enter the number of players (2-8 players) : ");
+			System.out.println("How many players are going to play? : ");
+			numOfPlayers = keyboard.nextInt();
+		}
+		
 		for(int i = 0; i < numOfPlayers; i++)
 		{
 			players.add(new Player(i + 1));
 		}
 		
-		handlingPlayerEvents();
+		
 	}
 
 	/**
@@ -102,6 +110,7 @@ public class Game
 				System.out.print("Player " + playerNumber + ": ");
 				char direction = keyboard.next().charAt(0);
 				int nextTile = player.move(direction);
+				
 				
 				if(nextTile == Map.TILE_WATER)
 				{
@@ -229,13 +238,14 @@ public class Game
 	 */
 	static void startGame()
 	{
+		setNumPlayers();
 		System.out.print("Enter size of map : ");
 		int size = keyboard.nextInt();
 		map = new Map();
-		map.setSize(size);
+		map.setSize(getPlayers(),size);
 		map.generateMap();
 		map.printMap();
-		setNumPlayers();
+		handlingPlayerEvents();	
 	}
 	
 	/**
