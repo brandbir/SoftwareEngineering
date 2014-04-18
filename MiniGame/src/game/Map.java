@@ -66,7 +66,7 @@ public class Map
 			{
 				int x = ran.nextInt(5);
 				
-				if (x < 3)
+				if (x < 4)
 					colorMapping[i][j] = 0;
 				else
 					colorMapping[i][j] = 1;
