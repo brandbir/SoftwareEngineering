@@ -1,6 +1,7 @@
 package game;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Map Class that handles all the functionality of the 
@@ -12,6 +13,7 @@ public class Map
 	static int size;
 	int[][] colorMapping;
 	private String[] mapColors = {"#66BA75", "#949AEF", "#F0E86D", "#867878 "};
+	private static Scanner keyboard = new Scanner(System.in);
 	
 	public static final int TILE_INVALID	= -1;
 	public static final int TILE_GRASS		= 0;
@@ -25,8 +27,25 @@ public class Map
 	 * Sets the size of the Map
 	 * @param size map size
 	 */
-	public void setSize(int size)
+	public void setSize(int players, int size)
 	{
+		//added for validation
+		if(players >=2 && players<=4)
+		{
+			while(size<5 || size >50)
+			{
+				System.out.println("Size of map should be between 5 and 50.  Please re-enter size : ");
+				size = keyboard.nextInt();
+			}
+		}
+		else if(players >=5 && players <=8)
+		{
+			while(size<8 || size >50)
+			{
+				System.out.println("Size of map should be between 8 and 50.  Please re-enter size : ");
+				size = keyboard.nextInt();
+			}
+		}
 		colorMapping = new int[size][size];
 		Map.size = size;
 	}
