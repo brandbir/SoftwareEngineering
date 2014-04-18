@@ -1,50 +1,70 @@
 package game;
 
+/**
+ * Handles the data of the Player's Position
+ *
+ */
 public class Position
 {
 
 	private int x;
 	private int y;
 	
+	/**
+	 * Default Position Constructor
+	 */
 	public Position()
 	{
 		
 	}
+	
+	/**
+	 * Constructing a specific position
+	 * @param xCoordinate
+	 * @param yCoordinate
+	 */
 	public Position(int xCoordinate, int yCoordinate)
 	{
 		x = xCoordinate;
 		y = yCoordinate;
 	}
 	
+	/**
+	 * Set the xCoordinate
+	 * @param xCoordinate
+	 */
 	public void setX(int xCoordinate)
 	{
 		x = xCoordinate;
 	}
 	
+	/**
+	 * Set the yCoordinate
+	 * @param yCoordinate
+	 */
 	public void setY(int yCoordinate)
 	{
 		y = yCoordinate;
 	}
 	
+	/**
+	 * Get the x-coordinate
+	 * @return xCoordinate
+	 */
 	public int getX()
 	{
 		return x;
 	}
 	
+	/**
+	 * Gets the y-coordinate
+	 * @return yCoordinate
+	 */
 	public int getY()
 	{
 		return y;
 	}
 	
-	public void setPosition(int xCoordinate, int yCoordinate)
-	{
-		x = xCoordinate;
-		y = yCoordinate;
-	}
-	public Position getPosition()
-	{
-		return new Position(x, y);
-	}
 	
 	/**
 	 * Overriding the equals method for comparing two Positions
@@ -61,5 +81,4 @@ public class Position
 		
 		return equal;
 	}
-
 }

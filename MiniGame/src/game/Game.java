@@ -46,14 +46,13 @@ public class Game
 	 */
 	private static void setNumPlayers()
 	{
-		System.out.print("How many players are going to play? : ");
+		System.out.print("How many players are going to play? ");
 		int numOfPlayers = keyboard.nextInt();
 		
 		//added for validation purposes
 		while(numOfPlayers < 2 || numOfPlayers > 8)
 		{
-			System.out.println("Please re-enter the number of players (2-8 players) : ");
-			System.out.println("How many players are going to play? : ");
+			System.out.print("Please re-enter the number of players (2-8 players) :");
 			numOfPlayers = keyboard.nextInt();
 		}
 		
@@ -61,8 +60,6 @@ public class Game
 		{
 			players.add(new Player(i + 1));
 		}
-		
-		
 	}
 
 	/**
@@ -105,33 +102,38 @@ public class Game
 			{
 				Player player = players.get(i);
 				int playerNumber = player.getNumber();
+				int nextTile;
 				
-				//Get input from each user
-				System.out.print("Player " + playerNumber + ": ");
-				char direction = keyboard.next().charAt(0);
-				int nextTile = player.move(direction);
-				
-				
-				if(nextTile == Map.TILE_WATER)
+				do
 				{
-					System.out.println("Game Over Player " + playerNumber);
-					players.remove(i);
+					//Get input from each user
+					System.out.print("Player " + playerNumber + ": ");
+					char direction = keyboard.next().charAt(0);
+					nextTile = player.move(direction);
+					
+					
+					if(nextTile == Map.TILE_WATER)
+					{
+						System.out.println("Game Over Player " + playerNumber);
+						players.remove(i);
+					}
+					
+					else if(nextTile == Map.TILE_TREASURE)
+					{
+						System.out.println("Congratulations Player " + playerNumber + ", you have found the Treasure");
+						players.removeAll(players);
+					}
+					
+					else if(nextTile == Map.TILE_INVALID)
+					{
+						System.out.println("Invalid Direction, move using (U)p, (D)own, (R)ight and (L)eft within the map's boundaries");
+						
+					}
 				}
-				
-				else if(nextTile == Map.TILE_TREASURE)
-				{
-					System.out.println("Congratulations " + playerNumber + ", you have found the Treasure");
-					players.removeAll(players);
-				}
-				
-				else if(nextTile == Map.TILE_INVALID)
-				{
-					System.out.println("Invalid Direction");
-				}
+				while(nextTile == Map.TILE_INVALID);
 				
 				//Modify the HTML map for this particular Player
 				generateHTMLFiles(false, player);
-				
 			}
 		}
 	}
@@ -155,18 +157,37 @@ public class Game
 	 * @param player The player to which the HTML rendered code is delivered
 	 * @return Initialisation HTML code
 	 */
+	
 	public static String generateHTMLCode(Player player)
 	{
 		StringBuffer buff = new StringBuffer();
 		buff.append("<!DOCTYPE html>\n")
 			.append("<html>\n")
 			.append("\t<head>\n")
+			.append("\t\t<meta charset='UTF-8'>\n")
 			.append("\t\t<title>MinGame Map</title>\n")
+			.append("\t\t<style type='text/css'>\n")
+			.append("\t\t\t td\n")
+			.append("\t\t\t {\n")
+			.append("\t\t\t\t text-align:center;\n")
+			.append("\t\t\t\t width: 45px;\n")
+			.append("\t\t\t\t height: 45px;\n")
+			.append("\t\t\t\t background-color:")
+			.append((map.getTileType(Map.TILE_HIDDEN)))
+			.append(";\n")
+			.append("\t\t\t }\n")
+			.append("\n\t\t\t #header\n")
+			.append("\t\t\t {\n")
+			.append("\t\t\t\t border-top-left-radius: 200px;\n")
+			.append("\t\t\t\t border-top-right-radius: 200px;\n")
+			.append("\t\t\t\t color: #FFFFFF;\n")
+			.append("\t\t\t}\n")
+			.append("\t\t</style>\n")
 			.append("\t</head>\n")
 			.append("\t<body>\n")
 			.append("\t\t<table style='width:40%; margin-left:auto; margin-right:auto'>\n")
 			.append("\t\t\t<tr>\n")
-			.append("\t\t\t\t<td colspan='" + map.getSize())
+			.append("\t\t\t\t<td id='header' colspan='" + map.getSize())
 			.append("' style='font-size:20px; text-align:center; font-style:italic'> miniGame - Player ")
 			.append(player.getNumber() + " </td>\n")
 			.append("\t\t\t</tr>\n");
@@ -179,25 +200,16 @@ public class Game
 				buff.append("\t\t\t\t<td id='")
 				.append(row)
 				.append("-")
-				.append(col)
-				.append("' style='text-align:center; width:45px; height:45px; background-color:");
-				
+				.append(col);
 				
 				if(player.getPosition().equals(new Position(row, col)))
 				{
-					buff.append(map.getTileType(Map.TILE_GRASS));
-				}
-				
-				else
-				{
-					buff.append(map.getTileType(Map.TILE_HIDDEN));
-				}
-				
-				if(player.getPosition().equals(new Position(row, col)))
-				{
-					buff.append("'>\n")
+					buff.append("' style='text-align:center; width:45px; height:45px; background-color:")
+						.append(map.getTileType(Map.TILE_GRASS))
+						.append("'>\n")
 						.append("\t\t\t\t\t<img id='currentPosition' src='../images/currentPosition.png' alt='CurrentPositon' height='42' width='42'>\n\t\t\t\t");
 				}
+				
 				else
 				{
 					buff.append("'>");
@@ -242,7 +254,7 @@ public class Game
 		System.out.print("Enter size of map : ");
 		int size = keyboard.nextInt();
 		map = new Map();
-		map.setSize(getPlayers(),size);
+		map.setSize(getPlayers(), size);
 		map.generateMap();
 		map.printMap();
 		handlingPlayerEvents();	

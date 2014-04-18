@@ -1,5 +1,9 @@
 package game;
 
+/**
+ * Handles the functionality of the Player
+ *
+ */
 public class Player
 {
 	private Position position;
@@ -24,7 +28,38 @@ public class Player
 
 	}
 	
-	//TODO : Convert new position to default Position
+	/**
+	 * Gets the current position of the player
+	 * @return current position
+	 */
+	public Position getPosition()
+	{
+		return position;
+	}
+	
+	/**
+	 * Sets the player Number
+	 * @param num player's number
+	 */
+	public void setNumber(int num)
+	{
+		number = num;
+	}
+	
+	/**
+	 * Gets the player number
+	 * @return player's number
+	 */
+	public int getNumber()
+	{
+		return number;
+	}
+	
+	/**
+	 * Moves the player to a different position
+	 * @param direction Direction's movement
+	 * @return new position of the player
+	 */
 	public int move(char direction)
 	{
 		switch(direction)
@@ -59,6 +94,7 @@ public class Player
 		int x = p.getX();
 		int y = p.getY();
 		
+		//Checking that the position is within the game's map
 		if((x >= 0 && x < Game.getMap().getSize()) && (y >= 0 && y < Game.getMap().getSize()))
 		{
 			if(Game.getMap().colorMapping[x][y] == Map.TILE_GRASS)
@@ -84,50 +120,5 @@ public class Player
 		}
 	
 		return newPos;
-		
-		
-	}
-	
-	//TODO : to be deleted in the near future. This method is still being used so make sure that
-	// deletion is performed after the NECESSARY UPDATE
-	public boolean setPosition(int x, int y)
-	{
-		boolean set = true;
-		
-		if((x >= 0 && x < Game.getMap().getSize()) && (y >= 0 && y < Game.getMap().getSize()))
-		{
-			if(Game.getMap().colorMapping[x][y] == 0)
-			{
-				position.setX(x);
-				position.setY(y);
-			}
-			else
-			{
-				System.out.println("Not Green tile..");
-				set = false;
-			}
-		}
-		else
-		{
-			System.out.println("Outside Map..");
-			set = false;
-		}
-	
-		return set;
-	}
-	
-	public Position getPosition()
-	{
-		return position;
-	}
-	
-	public void setNumber(int num)
-	{
-		number = num;
-	}
-	
-	public int getNumber()
-	{
-		return number;
 	}
 }

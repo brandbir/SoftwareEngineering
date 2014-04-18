@@ -5,6 +5,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * A class that handles general methods used by miniGame
+ *
+ */
 public class Misc
 {
 	/**
@@ -40,12 +44,14 @@ public class Misc
 	/**
 	 * This method is used to write the HTML Map to a specified path
 	 * @param filePath The file to which you want to insert the HTML Maps
-	 * @param playerNum The number of the player
+	 * @param init initialisation/updating 
+	 * @param player Player Object
 	 */
 	public static void writeToFile(String filePath, boolean init, Player player)
 	{
 		String updatedHTML = "";
 		
+		//Getting the updatedHTML the player
 		if(!init)
 			updatedHTML = Game.updateHTML(player);
 		
@@ -63,7 +69,7 @@ public class Misc
 		
 		catch (IOException e)
 		{
-			LogFile.logError("[Game.generateHTMLFiles()]::" + e.getMessage());
+			LogFile.logError("Game.generateHTMLFiles()::" + e.getMessage());
 		}
 	}
 }

@@ -15,13 +15,12 @@ public class Map
 	private String[] mapColors = {"#66BA75", "#949AEF", "#F0E86D", "#867878 "};
 	private static Scanner keyboard = new Scanner(System.in);
 	
+	//Tiles colour codes
 	public static final int TILE_INVALID	= -1;
 	public static final int TILE_GRASS		= 0;
 	public static final int TILE_WATER		= 1;
 	public static final int TILE_TREASURE	= 2;
 	public static final int TILE_HIDDEN		= 3;
-	
-	public static final int NO_PLAYERS		= -1;
 
 	/**
 	 * Sets the size of the Map
@@ -32,9 +31,9 @@ public class Map
 		//added for validation
 		if(players >=2 && players<=4)
 		{
-			while(size<5 || size >50)
+			while(size < 5 || size >50)
 			{
-				System.out.println("Size of map should be between 5 and 50.  Please re-enter size : ");
+				System.out.print("Size of map should be between 5 and 50.  Please re-enter size : ");
 				size = keyboard.nextInt();
 			}
 		}
@@ -50,12 +49,19 @@ public class Map
 		Map.size = size;
 	}
 	
-	int getSize()
+	/**
+	 * Gets the size of the map
+	 * @return map size
+	 */
+	public int getSize()
 	{
 		return size;
 	}
 
 	//TODO : We need to make sure that there is a valid path to reach the destination tile
+	/**
+	 * Generates the internal map structure
+	 */
 	void generateMap()
 	{
 		Random ran = new Random();
@@ -80,6 +86,9 @@ public class Map
 		colorMapping[row][col] = 2;
 	}
 
+	/**
+	 * Prints the map for testing purposes
+	 */
 	void printMap()
 	{
 		for (int i = 0; i < size; i++)
@@ -96,13 +105,24 @@ public class Map
 		}
 	}
 
-	String getTileType(int x, int y)
+	/**
+	 * Returns the colour of a particular tile specified by the x-y coordinates
+	 * @param x xCoordinate
+	 * @param y yCoordinate
+	 * @return tile's colour
+	 */
+	public String getTileType(int x, int y)
 	{
 		return mapColors[colorMapping[x][y]];
 	}
 	
-	String getTileType(int x)
+	/**
+	 * Returns the coded colour of the particular tile
+	 * @param code colour's code
+	 * @return actual colour in hex value
+	 */
+	public String getTileType(int code)
 	{
-		return mapColors[x];
+		return mapColors[code];
 	}
 }
