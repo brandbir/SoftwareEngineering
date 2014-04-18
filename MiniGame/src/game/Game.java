@@ -24,6 +24,9 @@ public class Game
 		players = null;
 	}
 	
+	/**
+	 * Starting Game
+	 */
 	public static void main(String args[])
 	{
 		startGame();
