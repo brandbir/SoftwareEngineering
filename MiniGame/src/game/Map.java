@@ -6,12 +6,15 @@ public class Map
 {
 	static int size;
 	int[][] colorMapping;
-	private String[] mapColors = {"#66BA75", "#949AEF", "#F0E86D"};
+	private String[] mapColors = {"#66BA75", "#949AEF", "#F0E86D", "#867878 "};
 	
-	public static int TILE_GRASS	= 0;
-	public static int TILE_WATER	= 1;
-	public static int TILE_TRES		= 2;
-	public static int TILE_INVALID	= -1;
+	public static final int TILE_INVALID	= -1;
+	public static final int TILE_GRASS		= 0;
+	public static final int TILE_WATER		= 1;
+	public static final int TILE_TREASURE	= 2;
+	public static final int TILE_HIDDEN		= 3;
+	
+	public static final int NO_PLAYERS		= -1;
 
 	void setSize(int size)
 	{
@@ -70,4 +73,8 @@ public class Map
 		return mapColors[colorMapping[x][y]];
 	}
 	
+	String getTileType(int x)
+	{
+		return mapColors[x];
+	}
 }

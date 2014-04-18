@@ -42,7 +42,7 @@ public class LogFile
 		{
 			FileWriter writer = new FileWriter(logFile);
 			BufferedWriter bw = new BufferedWriter(writer);
-			bw.write(error);
+			bw.write("[" + System.currentTimeMillis() + "]" + error);
 			bw.close();
 		} 
 		catch (IOException e)

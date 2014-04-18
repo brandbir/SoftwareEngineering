@@ -24,6 +24,7 @@ public class Player
 
 	}
 	
+	//TODO : Convert new position to default Position
 	public int move(char direction)
 	{
 		switch(direction)
@@ -62,21 +63,19 @@ public class Player
 		{
 			if(Game.getMap().colorMapping[x][y] == Map.TILE_GRASS)
 			{
-				position.setX(x);
-				position.setY(y);
 				newPos = Map.TILE_GRASS;
 			}
 			else
 			{
-				if(Game.getMap().colorMapping[x][y] == Map.TILE_TRES)
-				{
-					newPos = Map.TILE_TRES;
-				}
+				if(Game.getMap().colorMapping[x][y] == Map.TILE_TREASURE)
+					newPos = Map.TILE_TREASURE;
+				
 				else
-				{
 					newPos = Map.TILE_WATER;
-				}
 			}
+			
+			position.setX(x);
+			position.setY(y);
 			
 		}
 		else

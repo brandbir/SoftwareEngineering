@@ -1,7 +1,9 @@
 package game;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -39,6 +41,7 @@ public class Game
 	{
 		System.out.print("How many players are going to play? : ");
 		int numOfPlayers = keyboard.nextInt();
+		
 		for(int i = 0; i < numOfPlayers; i++)
 		{
 			players.add(new Player(i + 1));
@@ -46,48 +49,58 @@ public class Game
 		
 		handlingPlayerEvents();
 	}
-	
+
 	private static int getPlayers()
 	{
 		return players.size();
 	}
 	
+	/**
+	 * Handles all the player events
+	 * 	1. Generation of HTML Files
+	 * 	2. Movement of players
+	 * 	3. Updates corresponding HTML Files
+	 */
 	private static void handlingPlayerEvents()
 	{
-		// generating random position
+		//Generating random position
 		Random ran = new Random();
+		Misc.deleteFiles("external/maps");
 		
 		for(int i = 0; i < players.size(); i++)
 		{
 			Player player = players.get(i);
 			
-			// Get random position for each particular player
+			//Get random position for each particular player
 			while(player.setPosition(new Position(ran.nextInt(map.getSize()), ran.nextInt(map.getSize()))) != Map.TILE_GRASS)
 			{
-				// Setting a valid position
+				//Setting a valid position
 			}
+			
+			generateHTMLFiles(true, player);
 		}
-		
-		generateHTMLFiles();
 		
 		while(getPlayers() > 0)
 		{
 			for(int i = 0; i < players.size(); i++)
 			{
-				// Get input from each user
-				System.out.print("Player " + players.get(i).getNumber() + ": ");
+				Player player = players.get(i);
+				int playerNumber = player.getNumber();
+				
+				//Get input from each user
+				System.out.print("Player " + playerNumber + ": ");
 				char direction = keyboard.next().charAt(0);
-				int nextTile = players.get(i).move(direction);
+				int nextTile = player.move(direction);
 				
 				if(nextTile == Map.TILE_WATER)
 				{
-					System.out.println("Oops you fell in the water... You Lost :(");
+					System.out.println("Game Over Player " + playerNumber);
 					players.remove(i);
 				}
 				
-				else if(nextTile == Map.TILE_TRES)
+				else if(nextTile == Map.TILE_TREASURE)
 				{
-					System.out.println("Congratulations, you have found the treasure");
+					System.out.println("Congratulations " + playerNumber + ", you have found the Treasure");
 					players.removeAll(players);
 				}
 				
@@ -95,76 +108,115 @@ public class Game
 				{
 					System.out.println("Invalid Direction");
 				}
+				
+				//Modify the HTML map for this particular Player
+				generateHTMLFiles(false, player);
+				
 			}
 		}
 	}
 
-	private static void generateHTMLFiles()
+	/**
+	 * Generates HTML files
+	 * @param init Whether HTML files are created for initialisation or for updating
+	 * @param player Player to which HTML files are to be delivered
+	 */
+	private static void generateHTMLFiles(boolean init, Player player)
 	{
-		Misc.deleteFiles("external\\maps");
+		if(init)
+			Misc.writeToFile("external/maps/map_player_" + player.getNumber() +".html", init, player);
 		
-		for(int i = 1; i < getPlayers() + 1; i++)
+		else
+			Misc.writeToFile("external/maps/map_player_" + player.getNumber() +".html", false, player);
+	}
+	
+	/**
+	 * Generates HTML Code for a particular player
+	 * @param player The player to which the HTML rendered code is delivered
+	 * @return Initialisation HTML code
+	 */
+	public static String generateHTMLCode(Player player)
+	{
+		StringBuffer buff = new StringBuffer();
+		buff.append("<!DOCTYPE html>\n")
+			.append("<html>\n")
+			.append("\t<head>\n")
+			.append("\t\t<title>MinGame Map</title>\n")
+			.append("\t</head>\n")
+			.append("\t<body>\n")
+			.append("\t\t<table style='width:40%; margin-left:auto; margin-right:auto'>\n")
+			.append("\t\t\t<tr>\n")
+			.append("\t\t\t\t<td colspan='" + map.getSize())
+			.append("' style='font-size:20px; text-align:center; font-style:italic'> miniGame - Player ")
+			.append(player.getNumber() + " </td>\n")
+			.append("\t\t\t</tr>\n");
+		
+		for(int row = 0; row < map.getSize(); row++ )
 		{
-			try
+			buff.append("\t\t\t<tr>\n");
+			for(int col = 0; col < map.getSize(); col++)
 			{
-				BufferedWriter w = new BufferedWriter(new FileWriter("external\\maps\\map_player_" + i +".html"));
-				w.write("<!DOCTYPE html>\n");
-				w.write("<html>\n");
-				w.write("\t<head>\n");
-				w.write("\t\t<title>MinGame Map</title>\n");
-				w.write("\t\t<script>\n");
-				w.write("\t\t\tvar timer;\n");
-				w.write("\t\t\tfunction refreshmypage(){\n");
-				w.write("\t\t\tdocument.location=document.location.href;}\n");
-				w.write("\t\t\ttimer=setTimeout(refreshmypage,1000)\n"); 
-				w.write("\t\t</script>\n");
-				w.write("\t</head>\n");
-				w.write("\t<body>\n");
-				w.write("\t\t<table style='width:40%; margin-left:auto; margin-right:auto'>\n");
-				w.write("\t\t\t<tr>\n");
-				w.write("\t\t\t\t<td colspan='" + map.getSize());
-				w.write("' style='font-size:20px; text-align:center; font-style:italic'> miniGame - Player ");
-				w.write(i + " </td>\n");
-				w.write("\t\t\t</tr>\n");
+				buff.append("\t\t\t\t<td id='")
+				.append(row)
+				.append("-")
+				.append(col)
+				.append("' style='text-align:center; width:45px; height:45px; background-color:");
 				
-				for(int row = 0; row < map.getSize(); row++ )
+				
+				if(player.getPosition().equals(new Position(row, col)))
 				{
-					w.write("\t\t\t<tr>\n");
-					for(int col = 0; col < map.getSize(); col++)
-					{
-						w.write("\t\t\t\t<td style='text-align:center; width:45px; height:45px; background-color:");
-						w.write(map.getTileType(row, col));
-						
-						if(players.get(i-1).getPosition().equals(new Position(row, col)))
-						{
-							w.write("'>\n");
-							w.write("\t\t\t\t\t<img src='../images/currentPosition.png' alt='CurrentPositon' height='42' width='42'>\n\t\t\t\t");
-						}
-						else
-						{
-							w.write("'>");
-						}
-						w.write("</td>\n");
-					}
-					
-					w.write("\t\t\t</tr>\n");
+					buff.append(map.getTileType(Map.TILE_GRASS));
 				}
-				w.write("\t\t</table>\n");
-				w.write("\t</body>\n");
-				w.write("</html>");
-				w.close();
 				
-			} 
-			catch (IOException e)
-			{
-				LogFile.logError("[Game.generateHTMLFiles()]::" + e.getMessage());
+				else
+				{
+					buff.append(map.getTileType(Map.TILE_HIDDEN));
+				}
+				
+				if(player.getPosition().equals(new Position(row, col)))
+				{
+					buff.append("'>\n")
+						.append("\t\t\t\t\t<img id='currentPosition' src='../images/currentPosition.png' alt='CurrentPositon' height='42' width='42'>\n\t\t\t\t");
+				}
+				else
+				{
+					buff.append("'>");
+				}
+				
+				buff.append("</td>\n");
 			}
+			
+			buff.append("\t\t\t</tr>\n");
 		}
+		
+		buff.append("\t\t</table>\n")
+			.append("\t\t<script>\n")
+			.append("\t\t\tvar timer;\n")
+			.append("\n\t\t\tfunction refreshmypage()\n")
+			.append("\t\t\t{\n")
+			.append("\t\t\t\tdocument.location=document.location.href;\n")
+			.append("\t\t\t}\n")
+			.append("\n\t\t\ttimer=setTimeout(refreshmypage,1000);\n")
+			.append("\n\t\t\tfunction updatePosition(x, y, color)\n")
+			.append("\t\t\t{\n")
+			.append("\t\t\t\tdocument.getElementById(x + \'-\' + y).style.backgroundColor = color;\n")
+			.append("\t\t\t\tvar currentPos = document.getElementById('currentPosition');\n")
+			.append("\t\t\t\tcurrentPos.parentNode.removeChild(currentPos);\n")
+			.append("\t\t\t\tvar newPos = document.getElementById(x + \'-\' + y);\n")
+			.append("\t\t\t\tnewPos.appendChild(currentPos);\n")
+			.append("\t\t\t}\n\n")
+			.append("\t\t\t//Player Directions\n")
+			.append("\t\t</script>\n")
+			.append("\t</body>\n")
+			.append("</html>");
+		
+		return buff.toString();
 	}
 
+	
 	static void startGame()
 	{
-		System.out.print("Enter size of map : \n");
+		System.out.print("Enter size of map : ");
 		int size = keyboard.nextInt();
 		map = new Map();
 		map.setSize(size);
@@ -173,5 +225,80 @@ public class Game
 		setNumPlayers();
 	}
 	
+	/**
+	 * Gets a particular player based on the player number
+	 * @param playerNumber the number of the player
+	 * @return Player
+	 */
+	public static Player getPlayer(int playerNumber)
+	{
+		Player player = null;
+		for(int i = 0; i < getPlayers(); i++)
+		{
+			if(players.get(i).getNumber() == playerNumber)
+			{
+				player =  players.get(i);
+			}
+		}
+		
+		return player;
+	}
 	
+	/**
+	 * Updates the map for each player according to each particular
+	 * step made by the player
+	 * @param player Player that wants his map to be updated
+	 * @return updated HTML
+	 */
+	public static String updateHTML(Player player)
+	{
+		BufferedReader reader = null;
+		StringBuilder buff = new StringBuilder();
+		
+		try
+		{
+			File file = new File("external/maps/map_player_" + player.getNumber() +".html");
+			reader = new BufferedReader(new FileReader(file));
+		} 
+		catch (FileNotFoundException e)
+		{
+			LogFile.logError("Game.updateHTML::" + e.getMessage());
+		}
+		
+		String line = "";
+		
+		try
+		{
+			//Reading the current file until the point to which the file will be modified
+			while ((line = reader.readLine()) !=null && !line.contains("//Player Directions"))
+				buff.append(line + "\n");
+			
+			int x = player.getPosition().getX();
+			int y = player.getPosition().getY();
+			
+			//Updating the HTML File with the new Position of the player
+			buff.append("\t\t\tupdatePosition(")
+				.append(x)
+				.append(", ")
+				.append(y)
+				.append(",'")
+				.append(map.getTileType(x, y))
+				.append("');\n")
+				.append("\t\t\t//Player Directions\n");
+
+
+			//Continue reading the rest of the file after appending the direction of the 
+			//player at the appropriate line number
+			while ((line = reader.readLine()) != null)
+				buff.append(line + "\n");
+			
+			reader.close();
+		}
+		catch (IOException e)
+		{
+			LogFile.logError("Game.updateHTML:: " + e.getMessage());
+		}
+		
+		return buff.toString();
+	}
 }
