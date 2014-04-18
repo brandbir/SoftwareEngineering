@@ -15,15 +15,23 @@ public class LogFile
 	private static final String LOG_PATH = "miniGame-logs.txt";
 	private static File logFile = null;
 	
+	/**
+	 * Default constructor of the LogFile
+	 */
 	public LogFile()
 	{
 		
 	}
 	
+	/**
+	 * Logs an error to the Log File
+	 * @param error The error to be logged
+	 */
 	public static void logError(String error)
 	{
 		if(logFile == null)
 		{
+			//Creating a new Directory for the logs
 			File dir = new File("logs");
 			dir.mkdir();
 			logFile = new File(dir, LOG_PATH);

@@ -29,6 +29,10 @@ public class Game
 		startGame();
 	}
 	
+	/**
+	 * Returns the map of the Game
+	 * @return Map
+	 */
 	public static Map getMap()
 	{
 		return map;
@@ -50,6 +54,10 @@ public class Game
 		handlingPlayerEvents();
 	}
 
+	/**
+	 * Gets number of players
+	 * @return number of players
+	 */
 	private static int getPlayers()
 	{
 		return players.size();
@@ -212,8 +220,10 @@ public class Game
 		
 		return buff.toString();
 	}
-
 	
+	/**
+	 * Starts the Game
+	 */
 	static void startGame()
 	{
 		System.out.print("Enter size of map : ");
@@ -285,7 +295,6 @@ public class Game
 				.append(map.getTileType(x, y))
 				.append("');\n")
 				.append("\t\t\t//Player Directions\n");
-
 
 			//Continue reading the rest of the file after appending the direction of the 
 			//player at the appropriate line number

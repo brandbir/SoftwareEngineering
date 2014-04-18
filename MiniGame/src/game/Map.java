@@ -2,6 +2,11 @@ package game;
 
 import java.util.Random;
 
+/**
+ * Map Class that handles all the functionality of the 
+ * generated Map that will be used for the duration of
+ * the Game
+ */
 public class Map
 {
 	static int size;
@@ -16,12 +21,16 @@ public class Map
 	
 	public static final int NO_PLAYERS		= -1;
 
-	void setSize(int size)
+	/**
+	 * Sets the size of the Map
+	 * @param size map size
+	 */
+	public void setSize(int size)
 	{
 		colorMapping = new int[size][size];
 		Map.size = size;
 	}
-
+	
 	int getSize()
 	{
 		return size;
