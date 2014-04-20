@@ -14,6 +14,9 @@ public class Game
 	private static Scanner keyboard = new Scanner(System.in);
 	private static Map map;
 	private static ArrayList<Player> players = new ArrayList<Player>();
+	private static ArrayList<Player> winners = new ArrayList<Player>();
+	private static ArrayList<Player> tempPlayers;
+
 	
 	/**
 	 * Default Constructor which initialises the class variables
@@ -77,7 +80,7 @@ public class Game
 	 * 	2. Movement of players
 	 * 	3. Updates corresponding HTML Files
 	 */
-	private static void handlingPlayerEvents()
+	private static void handlingPlayerEvents(boolean generatePlayerPos)
 	{
 		//Generating random position
 		Random ran = new Random();
@@ -87,54 +90,84 @@ public class Game
 		{
 			Player player = players.get(i);
 			
-			//Get random position for each particular player
-			while(player.setPosition(new Position(ran.nextInt(map.getSize()), ran.nextInt(map.getSize()))) != Map.TILE_GRASS)
+			if(generatePlayerPos)
 			{
-				//Setting a valid position
+				//Get random position for each particular player
+				while(player.setPosition(new Position(ran.nextInt(map.getSize()), ran.nextInt(map.getSize()))) != Map.TILE_GRASS)
+				{
+					//Setting a valid position
+				}
 			}
 			
 			generateHTMLFiles(true, player);
 		}
 		
+		//Copying players temporarily for future reference in case they will need to play the game again
+		tempPlayers = Player.copyPlayers(players);
+
 		while(getPlayers() > 0)
 		{
-			for(int i = 0; i < players.size(); i++)
+			int currentPlayers = getPlayers();
+			
+			for(int i = 0; i < currentPlayers; i++)
 			{
-				Player player = players.get(i);
-				int playerNumber = player.getNumber();
-				int nextTile;
-				
-				do
+				if(winners.isEmpty() || winners.get(winners.size() - 1).getNumber() < players.get(i).getNumber())
 				{
-					//Get input from each user
-					System.out.print("Player " + playerNumber + ": ");
-					char direction = keyboard.next().charAt(0);
-					nextTile = player.move(direction);
+					Player player = players.get(i);
+					int playerNumber = player.getNumber();
+					int nextTile;
 					
-					
-					if(nextTile == Map.TILE_WATER)
+					do
 					{
-						System.out.println("Game Over Player " + playerNumber);
-						players.remove(i);
-					}
-					
-					else if(nextTile == Map.TILE_TREASURE)
-					{
-						System.out.println("Congratulations Player " + playerNumber + ", you have found the Treasure");
-						players.removeAll(players);
-					}
-					
-					else if(nextTile == Map.TILE_INVALID)
-					{
-						System.out.println("Invalid Direction, move using (U)p, (D)own, (R)ight and (L)eft within the map's boundaries");
+						//Get input from each user
+						System.out.print("Player " + playerNumber + ": ");
+						char direction = keyboard.next().charAt(0);
+						nextTile = player.move(direction);
 						
+						if(nextTile == Map.TILE_WATER)
+						{
+							System.out.println("Game Over Player " + playerNumber);
+							players.remove(i);
+							currentPlayers--;
+							i--;
+						}
+						
+						else if(nextTile == Map.TILE_TREASURE)
+						{
+							System.out.println("Congratulations Player " + playerNumber + ", you have found the Treasure");
+							winners.add(player);
+						}
+						
+						else if(nextTile == Map.TILE_INVALID)
+						{
+							System.out.println("Invalid Direction, move using (U)p, (D)own, (R)ight and (L)eft within the map's boundaries");
+						}
 					}
+					while(nextTile == Map.TILE_INVALID);
+					
+					//Modify the HTML map for this particular Player
+					generateHTMLFiles(false, player);
 				}
-				while(nextTile == Map.TILE_INVALID);
-				
-				//Modify the HTML map for this particular Player
-				generateHTMLFiles(false, player);
+				else
+				{
+					System.out.println("We have " + winners.size() + " winner/s for this game!");
+					return;
+				}
 			}
+		}
+		
+		System.out.print("Players, would you like to give another try? Y/N  :");
+		
+		if(keyboard.next().charAt(0) == 'Y')
+		{
+			for(Player player : tempPlayers)
+				players.add(player);
+			
+			handlingPlayerEvents(false);
+		}
+		else
+		{
+			System.out.println("Goodbye!");
 		}
 	}
 
@@ -257,7 +290,7 @@ public class Game
 		map.setSize(getPlayers(), size);
 		map.generateMap();
 		map.printMap();
-		handlingPlayerEvents();	
+		handlingPlayerEvents(true);	
 	}
 	
 	/**

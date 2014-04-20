@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+
 /**
  * Handles the functionality of the Player
  *
@@ -17,6 +19,16 @@ public class Player
 		position = new Position();
 	}
 	
+	/**
+	 * Constructor used for creating a player based on other's player details
+	 * @param p Player 
+	 */
+	public Player(Player p)
+	{
+		number = p.getNumber();
+		Position pos = p.getPosition();
+		position = new Position(pos.getX(), pos.getY());
+	}
 	/**
 	 * Player Constructor with a particular number
 	 * @param number - identification number
@@ -121,4 +133,20 @@ public class Player
 	
 		return newPos;
 	}
+
+	/**
+	 * Copies the players of the game to a temporarily ArrayList
+	 * @param players players to be copied
+	 * @return copied players
+	 */
+	public static ArrayList<Player> copyPlayers(ArrayList<Player> players)
+	{
+		ArrayList<Player> copiedPlayers = new ArrayList<Player>();
+		
+		for (Player p : players)
+			copiedPlayers.add(new Player(p));
+		
+		return copiedPlayers;
+	}
+	
 }

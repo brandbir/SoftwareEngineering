@@ -29,17 +29,17 @@ public class Map
 	public void setSize(int players, int size)
 	{
 		//added for validation
-		if(players >=2 && players<=4)
+		if(players >= 2 && players <= 4)
 		{
-			while(size < 5 || size >50)
+			while(size < 5 || size > 50)
 			{
 				System.out.print("Size of map should be between 5 and 50.  Please re-enter size : ");
 				size = keyboard.nextInt();
 			}
 		}
-		else if(players >=5 && players <=8)
+		else if(players >=5 && players <= 8)
 		{
-			while(size<8 || size >50)
+			while(size<8 || size > 50)
 			{
 				System.out.println("Size of map should be between 8 and 50.  Please re-enter size : ");
 				size = keyboard.nextInt();

@@ -65,7 +65,6 @@ public class Position
 		return y;
 	}
 	
-	
 	/**
 	 * Overriding the equals method for comparing two Positions
 	 * @param p Position
