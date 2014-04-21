@@ -112,6 +112,7 @@ public class Game
 			
 			for(int i = 0; i < currentPlayers; i++)
 			{
+				//if there is a previous winner the current player needs to perform his last movement
 				if(winners.isEmpty() || winners.get(winners.size() - 1).getNumber() < players.get(i).getNumber())
 				{
 					Player player = players.get(i);

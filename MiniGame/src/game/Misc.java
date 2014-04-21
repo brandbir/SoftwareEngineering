@@ -47,9 +47,10 @@ public class Misc
 	 * @param init initialisation/updating 
 	 * @param player Player Object
 	 */
-	public static void writeToFile(String filePath, boolean init, Player player)
+	public static int writeToFile(String filePath, boolean init, Player player)
 	{
 		String updatedHTML = "";
+		int fileCreated = 1;
 		
 		//Getting the updatedHTML the player
 		if(!init)
@@ -70,6 +71,9 @@ public class Misc
 		catch (IOException e)
 		{
 			LogFile.logError("Game.generateHTMLFiles()::" + e.getMessage());
+			fileCreated = -1;
 		}
+		
+		return fileCreated;
 	}
 }
