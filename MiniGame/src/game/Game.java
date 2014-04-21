@@ -93,7 +93,7 @@ public class Game
 			if(generatePlayerPos)
 			{
 				//Get random position for each particular player
-				while(player.setPosition(new Position(ran.nextInt(map.getSize()), ran.nextInt(map.getSize()))) != Map.TILE_GRASS)
+				while(player.setPosition(map, new Position(ran.nextInt(map.getSize()), ran.nextInt(map.getSize()))) != Map.TILE_GRASS)
 				{
 					//Setting a valid position
 				}
@@ -122,7 +122,7 @@ public class Game
 						//Get input from each user
 						System.out.print("Player " + playerNumber + ": ");
 						char direction = keyboard.next().charAt(0);
-						nextTile = player.move(direction);
+						nextTile = player.move(map, direction);
 						
 						if(nextTile == Map.TILE_WATER)
 						{

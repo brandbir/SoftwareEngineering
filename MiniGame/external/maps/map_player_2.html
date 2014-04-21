@@ -26,7 +26,9 @@
 				<td id='header' colspan='5' style='font-size:20px; text-align:center; font-style:italic'> miniGame - Player 2 </td>
 			</tr>
 			<tr>
-				<td id='0-0'></td>
+				<td id='0-0' style='text-align:center; width:45px; height:45px; background-color:#66BA75'>
+					<img id='currentPosition' src='../images/currentPosition.png' alt='CurrentPositon' height='42' width='42'>
+				</td>
 				<td id='0-1'></td>
 				<td id='0-2'></td>
 				<td id='0-3'></td>
@@ -34,9 +36,7 @@
 			</tr>
 			<tr>
 				<td id='1-0'></td>
-				<td id='1-1' style='text-align:center; width:45px; height:45px; background-color:#66BA75'>
-					<img id='currentPosition' src='../images/currentPosition.png' alt='CurrentPositon' height='42' width='42'>
-				</td>
+				<td id='1-1'></td>
 				<td id='1-2'></td>
 				<td id='1-3'></td>
 				<td id='1-4'></td>
@@ -82,7 +82,10 @@
 				newPos.appendChild(currentPos);
 			}
 
-			updatePosition(1, 0,'#949AEF');
+			updatePosition(1, 0,'#66BA75');
+			updatePosition(1, 1,'#66BA75');
+			updatePosition(2, 1,'#66BA75');
+			updatePosition(2, 2,'#F0E86D');
 			//Player Directions
 		</script>
 	</body>

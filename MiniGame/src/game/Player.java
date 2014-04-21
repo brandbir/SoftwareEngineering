@@ -72,21 +72,21 @@ public class Player
 	 * @param direction Direction's movement
 	 * @return new position of the player
 	 */
-	public int move(char direction)
+	public int move(Map map, char direction)
 	{
 		switch(direction)
 		{
 			case 'L':
-				return setPosition(new Position(position.getX(), position.getY() - 1));
+				return setPosition(map, new Position(position.getX(), position.getY() - 1));
 			
 			case 'R':
-				return setPosition(new Position(position.getX(), position.getY() + 1));
+				return setPosition(map, new Position(position.getX(), position.getY() + 1));
 			
 			case 'U':
-				return setPosition(new Position(position.getX() - 1, position.getY()));
+				return setPosition(map, new Position(position.getX() - 1, position.getY()));
 			
 			case 'D':
-				return setPosition(new Position(position.getX() + 1, position.getY()));
+				return setPosition(map, new Position(position.getX() + 1, position.getY()));
 			
 			default:
 				return Map.TILE_INVALID;
@@ -100,22 +100,22 @@ public class Player
 	 * @return true if position is valid otherwise
 	 *		   false if position is not valid
 	 */
-	public int setPosition(Position p)
+	public int setPosition(Map map, Position p)
 	{
 		int newPos = Map.TILE_INVALID;
 		int x = p.getX();
 		int y = p.getY();
 		
 		//Checking that the position is within the game's map
-		if((x >= 0 && x < Game.getMap().getSize()) && (y >= 0 && y < Game.getMap().getSize()))
+		if((x >= 0 && x < map.getSize()) && (y >= 0 && y < map.getSize()))
 		{
-			if(Game.getMap().colorMapping[x][y] == Map.TILE_GRASS)
+			if(map.colorMapping[x][y] == Map.TILE_GRASS)
 			{
 				newPos = Map.TILE_GRASS;
 			}
 			else
 			{
-				if(Game.getMap().colorMapping[x][y] == Map.TILE_TREASURE)
+				if(map.colorMapping[x][y] == Map.TILE_TREASURE)
 					newPos = Map.TILE_TREASURE;
 				
 				else
