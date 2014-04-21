@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Handles the functionality of the Player
@@ -147,6 +148,22 @@ public class Player
 			copiedPlayers.add(new Player(p));
 		
 		return copiedPlayers;
+	}
+	
+	public static Position getInitialPosition(Player player, Map map)
+	{
+		Position pos = null;
+		int posColor = Map.TILE_INVALID;
+		Random ran = new Random();
+		
+		do
+		{
+			pos = new Position(ran.nextInt(map.getSize()), ran.nextInt(map.getSize()));
+			posColor = player.setPosition(map, pos);
+		}
+		while(posColor != Map.TILE_GRASS);
+		
+		return pos;
 	}
 	
 }

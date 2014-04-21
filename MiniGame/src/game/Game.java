@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Game
@@ -83,7 +82,6 @@ public class Game
 	private static void handlingPlayerEvents(boolean generatePlayerPos)
 	{
 		//Generating random position
-		Random ran = new Random();
 		Misc.deleteFiles("external/maps");
 		
 		for(int i = 0; i < players.size(); i++)
@@ -93,10 +91,7 @@ public class Game
 			if(generatePlayerPos)
 			{
 				//Get random position for each particular player
-				while(player.setPosition(map, new Position(ran.nextInt(map.getSize()), ran.nextInt(map.getSize()))) != Map.TILE_GRASS)
-				{
-					//Setting a valid position
-				}
+				player.setPosition(map, Player.getInitialPosition(player, map));
 			}
 			
 			generateHTMLFiles(true, player);
