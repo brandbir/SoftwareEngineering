@@ -43,13 +43,18 @@ public class Game
 		return map;
 	}
 
-	/**
-	 * Sets the number of players that will be playing the game
-	 */
-	private static void setNumPlayers()
+	public static void getNumberOfPlayer()
 	{
 		System.out.print("How many players are going to play? ");
 		int numOfPlayers = keyboard.nextInt();
+		setNumPlayers(numOfPlayers);
+	}
+	/**
+	 * Sets the number of players that will be playing the game
+	 */
+	public static void setNumPlayers(int numOfPlayers)
+	{
+		
 		
 		//added for validation purposes
 		while(numOfPlayers < 2 || numOfPlayers > 8)
@@ -278,7 +283,7 @@ public class Game
 	 */
 	static void startGame()
 	{
-		setNumPlayers();
+		getNumberOfPlayer();
 		System.out.print("Enter size of map : ");
 		int size = keyboard.nextInt();
 		map = new Map();
