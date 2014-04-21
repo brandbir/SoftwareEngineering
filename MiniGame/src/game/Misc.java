@@ -47,21 +47,21 @@ public class Misc
 	 * @param init initialisation/updating 
 	 * @param player Player Object
 	 */
-	public static int writeToFile(String filePath, boolean init, Player player)
+	public static int writeToFile(Map map, String filePath, boolean init, Player player)
 	{
 		String updatedHTML = "";
 		int fileCreated = 1;
 		
 		//Getting the updatedHTML the player
 		if(!init)
-			updatedHTML = Game.updateHTML(player);
+			updatedHTML = Game.updateHTML(map,player);
 		
 		try
 		{
 			BufferedWriter w = new BufferedWriter(new FileWriter(filePath));
 			
 			if(init)
-				w.write(Game.generateHTMLCode(player));
+				w.write(Game.generateHTMLCode(map,player));
 			else
 				w.write(updatedHTML);
 			

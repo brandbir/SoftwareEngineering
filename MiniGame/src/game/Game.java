@@ -71,15 +71,6 @@ public class Game
 	}
 
 	/**
-	 * Gets number of players
-	 * @return number of players
-	 */
-	public static int getPlayers()
-	{
-		return players.size();
-	}
-	
-	/**
 	 * Handles all the player events
 	 * 	1. Generation of HTML Files
 	 * 	2. Movement of players
@@ -106,9 +97,9 @@ public class Game
 		//Copying players temporarily for future reference in case they will need to play the game again
 		tempPlayers = Player.copyPlayers(players);
 
-		while(getPlayers() > 0)
+		while(Map.size > 0)
 		{
-			int currentPlayers = getPlayers();
+			int currentPlayers = players.size();
 			
 			for(int i = 0; i < currentPlayers; i++)
 			{
@@ -181,10 +172,10 @@ public class Game
 	private static void generateHTMLFiles(boolean init, Player player)
 	{
 		if(init)
-			Misc.writeToFile("external/maps/map_player_" + player.getNumber() +".html", init, player);
+			Misc.writeToFile(map,"external/maps/map_player_" + player.getNumber() +".html", init, player);
 		
 		else
-			Misc.writeToFile("external/maps/map_player_" + player.getNumber() +".html", false, player);
+			Misc.writeToFile(map,"external/maps/map_player_" + player.getNumber() +".html", false, player);
 	}
 	
 	/**
@@ -193,7 +184,7 @@ public class Game
 	 * @return Initialisation HTML code
 	 */
 	
-	public static String generateHTMLCode(Player player)
+	public static String generateHTMLCode(Map map, Player player)
 	{
 		StringBuffer buff = new StringBuffer();
 		buff.append("<!DOCTYPE html>\n")
@@ -289,7 +280,7 @@ public class Game
 		System.out.print("Enter size of map : ");
 		int size = keyboard.nextInt();
 		map = new Map();
-		map.setSize(getPlayers(), size);
+		map.setSize(players.size(), size);
 		map.generateMap();
 		//map.printMap();
 		handlingPlayerEvents(true);	
@@ -303,7 +294,7 @@ public class Game
 	public static Player getPlayer(int playerNumber)
 	{
 		Player player = null;
-		for(int i = 0; i < getPlayers(); i++)
+		for(int i = 0; i < players.size(); i++)
 		{
 			if(players.get(i).getNumber() == playerNumber)
 			{
@@ -320,7 +311,7 @@ public class Game
 	 * @param player Player that wants his map to be updated
 	 * @return updated HTML
 	 */
-	public static String updateHTML(Player player)
+	public static String updateHTML(Map map,Player player)
 	{
 		BufferedReader reader = null;
 		StringBuilder buff = new StringBuilder();

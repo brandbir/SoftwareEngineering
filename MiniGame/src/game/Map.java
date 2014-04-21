@@ -26,27 +26,31 @@ public class Map
 	 * Sets the size of the Map
 	 * @param size map size
 	 */
-	public void setSize(int players, int size)
+	public boolean setSize(int players, int mapSize)
 	{
+	    boolean condition = false;
 		//added for validation
 		if(players >= 2 && players <= 4)
 		{
-			while(size < 5 || size > 50)
+			while(mapSize < 5 || mapSize > 50)
 			{
 				System.out.print("Size of map should be between 5 and 50.  Please re-enter size : ");
-				size = keyboard.nextInt();
+				mapSize = keyboard.nextInt();
 			}
 		}
 		else if(players >=5 && players <= 8)
 		{
-			while(size<8 || size > 50)
+			while(mapSize<8 || mapSize > 50)
 			{
 				System.out.println("Size of map should be between 8 and 50.  Please re-enter size : ");
-				size = keyboard.nextInt();
+				mapSize = keyboard.nextInt();
 			}
 		}
-		colorMapping = new int[size][size];
-		Map.size = size;
+		condition = true;
+		colorMapping = new int[mapSize][mapSize];
+		Map.size = mapSize;
+		
+		return condition;
 	}
 	
 	/**
