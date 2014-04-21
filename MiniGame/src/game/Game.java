@@ -47,14 +47,6 @@ public class Game
 	{
 		System.out.print("How many players are going to play? ");
 		int numOfPlayers = keyboard.nextInt();
-		setNumPlayers(numOfPlayers);
-	}
-	/**
-	 * Sets the number of players that will be playing the game
-	 */
-	public static void setNumPlayers(int numOfPlayers)
-	{
-		
 		
 		//added for validation purposes
 		while(numOfPlayers < 2 || numOfPlayers > 8)
@@ -63,17 +55,26 @@ public class Game
 			numOfPlayers = keyboard.nextInt();
 		}
 		
+		players = setNumPlayers(numOfPlayers, players);
+	}
+	/**
+	 * Sets the number of players that will be playing the game
+	 */
+	public static ArrayList<Player> setNumPlayers(int numOfPlayers, ArrayList<Player> players)
+	{
+
 		for(int i = 0; i < numOfPlayers; i++)
 		{
 			players.add(new Player(i + 1));
 		}
+		return players;
 	}
 
 	/**
 	 * Gets number of players
 	 * @return number of players
 	 */
-	private static int getPlayers()
+	public static int getPlayers()
 	{
 		return players.size();
 	}
@@ -289,7 +290,7 @@ public class Game
 		map = new Map();
 		map.setSize(getPlayers(), size);
 		map.generateMap();
-		map.printMap();
+		//map.printMap();
 		handlingPlayerEvents(true);	
 	}
 	

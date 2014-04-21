@@ -62,7 +62,7 @@ public class Map
 	/**
 	 * Generates the internal map structure
 	 */
-	void generateMap()
+	public void generateMap()
 	{
 		Random ran = new Random();
 
@@ -89,7 +89,7 @@ public class Map
 	/**
 	 * Prints the map for testing purposes
 	 */
-	void printMap()
+	/*void printMap()
 	{
 		for (int i = 0; i < size; i++)
 		{
@@ -103,7 +103,7 @@ public class Map
 			
 			System.out.println();
 		}
-	}
+	}*/
 
 	/**
 	 * Returns the colour of a particular tile specified by the x-y coordinates
