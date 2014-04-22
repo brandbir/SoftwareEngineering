@@ -56,5 +56,11 @@ public class GameTest{
 		int condition2 = Misc.writeToFile(map,"external/map/map_player_1.html",false,player);
 		assertEquals(condition2,-1);
 	}
+	
+	@Test 
+	public void testingDeleteFilesMethod()
+	{
+		
+	}
 
 }

@@ -42,9 +42,9 @@ public class MapTest {
 		
 		int yellowBlocks = 0;
 		
-		for(int i=0; i < 6; i++)
+		for(int i=0; i < 5; i++)
 		{
-			for(int j=0; j < 6; j++)
+			for(int j=0; j < 5; j++)
 			{
 				if(map.getTileType(i, j).equals("#F0E86D"))
 					yellowBlocks++;

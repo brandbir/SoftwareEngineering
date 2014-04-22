@@ -12,7 +12,7 @@ public class Map
 {
 	static int size;
 	int[][] colorMapping;
-	private String[] mapColors = {"#66BA75", "#949AEF", "#F0E86D", "#867878 "};
+	private String[] mapColors = {"#66BA75", "#949AEF", "#F0E86D", "#867878"};
 	private static Scanner keyboard = new Scanner(System.in);
 	
 	//Tiles colour codes
