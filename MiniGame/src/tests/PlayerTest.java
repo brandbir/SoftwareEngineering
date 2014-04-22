@@ -59,7 +59,7 @@ public class PlayerTest {
 		assertEquals(pos.getX(),0);
 		assertEquals(pos.getY(),0);
 		
-		/*int value = player.setPosition(map, new Position(1,3));
+		int value = player.setPosition(map, new Position(1,3));
 		if(map.getTileType(1, 3).equals("#66BA75"))
 		{
 			assertEquals(0,value);
@@ -75,7 +75,7 @@ public class PlayerTest {
 		else if(map.getTileType(1, 3).equals("#867878"))
 		{
 			assertEquals(3,value);
-		}*/
+		}
 		
 	}
 	
