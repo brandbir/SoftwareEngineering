@@ -46,16 +46,30 @@ public class Game
 	public static void getNumberOfPlayer()
 	{
 		System.out.print("How many players are going to play? ");
-		int numOfPlayers = keyboard.nextInt();
-		
-		//added for validation purposes
-		while(numOfPlayers < 2 || numOfPlayers > 8)
+		try
 		{
-			System.out.print("Please re-enter the number of players (2-8 players) :");
-			numOfPlayers = keyboard.nextInt();
-		}
+			//int numOfPlayers = keyboard.nextInt();
+			int numOfPlayers = Integer.parseInt(keyboard.nextLine());
 		
-		players = setNumPlayers(numOfPlayers, players);
+		
+			//added for validation purposes
+			while(numOfPlayers < 2 || numOfPlayers > 8)
+			{
+				System.out.print("Please re-enter the number of players (2-8 players) :");
+				numOfPlayers = keyboard.nextInt();
+			}
+			
+			players = setNumPlayers(numOfPlayers, players);
+		}
+		catch(Exception e)
+		{
+			LogFile.logError("Input error : " + e.getMessage());
+			System.out.println("You should have entered an integer.");
+			System.exit(0);
+		}
+	
+			
+
 	}
 	/**
 	 * Sets the number of players that will be playing the game
@@ -278,12 +292,24 @@ public class Game
 	{
 		getNumberOfPlayer();
 		System.out.print("Enter size of map : ");
-		int size = keyboard.nextInt();
-		map = new Map();
-		map.setSize(players.size(), size);
-		map.generateMap();
-		//map.printMap();
-		handlingPlayerEvents(true);	
+		try
+		{
+			//int size = keyboard.nextInt();
+			int size = Integer.parseInt(keyboard.nextLine());
+			map = new Map();
+			map.setSize(players.size(), size);
+			map.generateMap();
+			map.printMap();
+			handlingPlayerEvents(true);	
+		}
+		catch(Exception e)
+		{
+			LogFile.logError("Input error :: " + e.getMessage());
+			System.out.println("You should have entered an integer.");
+			System.exit(0);
+		}
+		
+		
 	}
 	
 	/**
