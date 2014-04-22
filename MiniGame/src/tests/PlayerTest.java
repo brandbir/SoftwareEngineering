@@ -133,7 +133,6 @@ public class PlayerTest {
 		//Position pos = new Position();
 		player.setPosition(map,new Position(2,2));
 		int condition = player.move(map,'M');//ivalid char
-		
 		assertEquals(condition, -1);
 	}
 	
@@ -158,7 +157,6 @@ public class PlayerTest {
 			 y_coord2 = players.get(i).getPosition().getY();
 			 assertEquals(y_coord1, y_coord2);
 		}	
-		
 	}
 	
 	//ensuring initial position of player is actually green
@@ -168,5 +166,4 @@ public class PlayerTest {
 		 Position p = Player.getInitialPosition(player, map);
 		 assertEquals(map.getTileType(p.getX(), p.getY()), "#66BA75");
 	}
-
 }

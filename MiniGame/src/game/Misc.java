@@ -11,6 +11,8 @@ import java.io.IOException;
  */
 public class Misc
 {
+	public static final int SUCCESS = 1;
+	public static final int FAILURE = -1;
 	/**
 	 * Deletes all files found inside a particular folder
 	 * @param path folder path
@@ -50,7 +52,7 @@ public class Misc
 	public static int writeToFile(Map map, String filePath, boolean init, Player player)
 	{
 		String updatedHTML = "";
-		int fileCreated = 1;
+		int fileCreated = Misc.SUCCESS;
 		
 		//Getting the updatedHTML the player
 		if(!init)
@@ -71,7 +73,7 @@ public class Misc
 		catch (IOException e)
 		{
 			LogFile.logError("Game.generateHTMLFiles()::" + e.getMessage());
-			fileCreated = -1;
+			fileCreated = Misc.FAILURE;
 		}
 		
 		return fileCreated;
