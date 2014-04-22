@@ -36,14 +36,14 @@ public class PlayerTest {
 		}
 	}
 
-	
-	/*@Test
+	//testing setNumber and getNumber methods
+	@Test
 	public void testingNumberOfPlayers()
 	{
 		player.setNumber(4);
 		assertEquals(player.getNumber(),4);
-	}*/
-	//assertEquals(,-1);   for invalid move
+	}
+	
 	
 	//ensuring that with an invalid move the position will remain the same
 	@Test
@@ -58,6 +58,25 @@ public class PlayerTest {
 		//asserting that player did not move 
 		assertEquals(pos.getX(),0);
 		assertEquals(pos.getY(),0);
+		
+		/*int value = player.setPosition(map, new Position(1,3));
+		if(map.getTileType(1, 3).equals("#66BA75"))
+		{
+			assertEquals(0,value);
+		}
+		else if(map.getTileType(1, 3).equals("#949AEF"))
+		{
+			assertEquals(1,value);
+		}
+		else if(map.getTileType(1, 3).equals("#F0E86D"))
+		{
+			assertEquals(2,value);
+		}
+		else if(map.getTileType(1, 3).equals("#867878"))
+		{
+			assertEquals(3,value);
+		}*/
+		
 	}
 	
 	//testing that the up move is working
@@ -65,17 +84,13 @@ public class PlayerTest {
 	public void testingBounderiesU() 
 	{
 		
-		//Position pos = new Position();
 		player.setPosition(map,new Position(2,2));
-		player.move(map,'U');//ivalid char
+		player.move(map,'U');
 		Position pos = player.getPosition();
 		
 		//asserting that player did not move 
 		assertEquals(pos.getX(),1);
 		assertEquals(pos.getY(),2);
-		
-		
-		
 	}
 	
 	
@@ -150,7 +165,6 @@ public class PlayerTest {
 	@Test
 	public void testingInitialTileType()
 	{
-		 //Game.handlingPlayerEvents(true);  //obtaining player's initial position
 		 Position p = Player.getInitialPosition(player, map);
 		 assertEquals(map.getTileType(p.getX(), p.getY()), "#66BA75");
 	}
