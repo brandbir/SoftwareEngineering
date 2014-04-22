@@ -29,6 +29,7 @@ public class GameTest{
 		map = new Map();
 		map.setSize(4, 5);
 		map.generateMap();
+		
 		player = new Player(1);
 		player.setPosition(map, new Position(1,2));
 		
@@ -58,17 +59,33 @@ public class GameTest{
 	public void testingDeleteFilesMethod() throws IOException
 	{
 		File folder = new File("external/maps");
+		//File f = new File("external/maps/testing/test.txt");
+		/*try
+		{
+			//if (f.getParentFile().mkdir()) {
+			    f.createNewFile();
+			//} else {
+			//    throw new IOException("Failed to create directory " + f.getParent());
+			//}
+		}
+		catch(Exception e)
+		{
+			System.out.println("exception" + e.getMessage());
+		}*/
 		
 		String[] subfiles;
 		subfiles = folder.list();
+		//System.out.println("No of files in directory" + subfiles.length);
 		
 		Misc.deleteFiles("external/maps/testingaaaaa");
 		subfiles = folder.list();
+		//System.out.println("No of files in directory" + subfiles.length);
 		
-		assertEquals(subfiles.length,5);
+		assertEquals(subfiles.length,1);
 		
 		Misc.deleteFiles("external/maps");
 		subfiles = folder.list();
+		//System.out.println("No of files in directory" + subfiles.length);
 		
 		assertEquals(subfiles.length,0);
 	}
