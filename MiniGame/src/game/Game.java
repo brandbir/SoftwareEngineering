@@ -43,23 +43,23 @@ public class Game
 		return map;
 	}
 
-	public static void getNumberOfPlayer()
+	public static int getNumberOfPlayers()
 	{
+		int numOfPlayers = -1;
+		
 		System.out.print("How many players are going to play? ");
+		
 		try
 		{
-			//int numOfPlayers = keyboard.nextInt();
-			int numOfPlayers = Integer.parseInt(keyboard.nextLine());
+			numOfPlayers = Integer.parseInt(keyboard.nextLine());
 		
-		
-			//added for validation purposes
+			//Added for validation purposes
 			while(numOfPlayers < 2 || numOfPlayers > 8)
 			{
 				System.out.print("Please re-enter the number of players (2-8 players) :");
 				numOfPlayers = keyboard.nextInt();
 			}
 			
-			players = setNumPlayers(numOfPlayers, players);
 		}
 		catch(Exception e)
 		{
@@ -68,7 +68,7 @@ public class Game
 			System.exit(0);
 		}
 	
-			
+		return numOfPlayers;
 
 	}
 	/**
@@ -291,7 +291,9 @@ public class Game
 	 */
 	static void startGame()
 	{
-		getNumberOfPlayer();
+		int numOfPlayers = getNumberOfPlayers();
+		players = setNumPlayers(numOfPlayers, players);
+		
 		System.out.print("Enter size of map : ");
 		try
 		{
@@ -308,26 +310,6 @@ public class Game
 			System.out.println("You should have entered an integer.");
 			System.exit(0);
 		}
-		
-	}
-	
-	/**
-	 * Gets a particular player based on the player number
-	 * @param playerNumber the number of the player
-	 * @return Player
-	 */
-	public static Player getPlayer(int playerNumber)
-	{
-		Player player = null;
-		for(int i = 0; i < players.size(); i++)
-		{
-			if(players.get(i).getNumber() == playerNumber)
-			{
-				player =  players.get(i);
-			}
-		}
-		
-		return player;
 	}
 	
 	/**

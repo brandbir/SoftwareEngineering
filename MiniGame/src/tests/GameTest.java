@@ -32,25 +32,14 @@ public class GameTest{
 		player = new Player(1);
 		player.setPosition(map, new Position(1,2));
 		
-	    players = new ArrayList<Player>();
-	    
+		players = new ArrayList<Player>();
 	}
-	
-	
 	
 	@Test
 	public void testNoOfPlayers()
 	{
 		players = Game.setNumPlayers(4, players);
 		assertEquals(players.size(),4);
-		
-	}
-	
-	@Test   //to arrange
-	public void testingGetPlayerMethod()
-	{
-		Player playerCheck = Game.getPlayer(1);
-		assertEquals(playerCheck.getNumber(),player.getNumber());
 	}
 	
 	@Test 
@@ -98,12 +87,5 @@ public class GameTest{
 		//System.out.println("No of files in directory" + subfiles.length);
 		
 		assertEquals(subfiles.length,0);
-		
-		
-		
-		
-		
-		
 	}
-
 }

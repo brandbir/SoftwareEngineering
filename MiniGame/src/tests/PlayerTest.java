@@ -12,7 +12,8 @@ import game.Position;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PlayerTest {
+public class PlayerTest
+{
 
 	Map map;
 	Player player;
@@ -43,7 +44,6 @@ public class PlayerTest {
 		player.setNumber(4);
 		assertEquals(player.getNumber(),4);
 	}
-	
 	
 	//ensuring that with an invalid move the position will remain the same
 	@Test
@@ -76,7 +76,6 @@ public class PlayerTest {
 		{
 			assertEquals(3,value);
 		}
-		
 	}
 	
 	//testing that the up move is working
@@ -109,7 +108,6 @@ public class PlayerTest {
 		assertEquals(pos.getY(),2);
 	}
 	
-	
 	//testing that the right move is actually working
 	@Test
 	public void testingBounderiesR() 
@@ -135,7 +133,6 @@ public class PlayerTest {
 		int condition = player.move(map,'M');//ivalid char
 		assertEquals(condition, -1);
 	}
-	
 	
 	//testing copyPlayers method
 	@Test
@@ -163,7 +160,7 @@ public class PlayerTest {
 	@Test
 	public void testingInitialTileType()
 	{
-		 Position p = Player.getInitialPosition(player, map);
-		 assertEquals(map.getTileType(p.getX(), p.getY()), "#66BA75");
+		Position p = Player.getInitialPosition(player, map);
+		assertEquals(map.getTileType(p.getX(), p.getY()), "#66BA75");
 	}
 }

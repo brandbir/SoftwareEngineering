@@ -16,7 +16,7 @@ public class MapTest {
 	@Before
 	public void before() 
 	{
-	    game = new Game();
+		game = new Game();
 		map = new Map();
 		map.setSize(3,5);
 		map.generateMap();
@@ -33,7 +33,6 @@ public class MapTest {
 		assertTrue(condition2);
 		
 		//Game with 6 players and a mapsize of 10
-			
 	}
 	
 	public void testingGenerateMapYellowBlock()
@@ -53,7 +52,5 @@ public class MapTest {
 		
 		assertEquals(yellowBlocks,1);
 	}
-	
-
 }
 
