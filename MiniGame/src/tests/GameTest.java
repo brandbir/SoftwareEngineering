@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -45,6 +46,13 @@ public class GameTest{
 		
 	}
 	
+	@Test   //to arrange
+	public void testingGetPlayerMethod()
+	{
+		Player playerCheck = Game.getPlayer(1);
+		assertEquals(playerCheck.getNumber(),player.getNumber());
+	}
+	
 	@Test 
 	public void generateHTMLFile() throws IOException
 	{
@@ -58,8 +66,43 @@ public class GameTest{
 	}
 	
 	@Test 
-	public void testingDeleteFilesMethod()
+	public void testingDeleteFilesMethod() throws IOException
 	{
+		File folder = new File("external/maps/testing");
+		File f = new File("external/maps/testing/test.txt");
+		try
+		{
+			//if (f.getParentFile().mkdir()) {
+			    f.createNewFile();
+			//} else {
+			//    throw new IOException("Failed to create directory " + f.getParent());
+			//}
+		}
+		catch(Exception e)
+		{
+			System.out.println("exception" + e.getMessage());
+		}
+		
+		String[] subfiles;
+		subfiles = folder.list();
+		//System.out.println("No of files in directory" + subfiles.length);
+		
+		Misc.deleteFiles("external/maps/testingaaaaa");
+		subfiles = folder.list();
+		//System.out.println("No of files in directory" + subfiles.length);
+		
+		assertEquals(subfiles.length,1);
+		
+		Misc.deleteFiles("external/maps/testing");
+		subfiles = folder.list();
+		//System.out.println("No of files in directory" + subfiles.length);
+		
+		assertEquals(subfiles.length,0);
+		
+		
+		
+		
+		
 		
 	}
 
