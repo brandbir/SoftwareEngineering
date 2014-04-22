@@ -57,34 +57,18 @@ public class GameTest{
 	@Test 
 	public void testingDeleteFilesMethod() throws IOException
 	{
-		File folder = new File("external/maps/testing");
-		File f = new File("external/maps/testing/test.txt");
-		try
-		{
-			//if (f.getParentFile().mkdir()) {
-			    f.createNewFile();
-			//} else {
-			//    throw new IOException("Failed to create directory " + f.getParent());
-			//}
-		}
-		catch(Exception e)
-		{
-			System.out.println("exception" + e.getMessage());
-		}
+		File folder = new File("external/maps");
 		
 		String[] subfiles;
 		subfiles = folder.list();
-		//System.out.println("No of files in directory" + subfiles.length);
 		
 		Misc.deleteFiles("external/maps/testingaaaaa");
 		subfiles = folder.list();
-		//System.out.println("No of files in directory" + subfiles.length);
 		
-		assertEquals(subfiles.length,1);
+		assertEquals(subfiles.length,5);
 		
-		Misc.deleteFiles("external/maps/testing");
+		Misc.deleteFiles("external/maps");
 		subfiles = folder.list();
-		//System.out.println("No of files in directory" + subfiles.length);
 		
 		assertEquals(subfiles.length,0);
 	}
