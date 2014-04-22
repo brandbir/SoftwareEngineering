@@ -111,7 +111,8 @@ public class Game
 		//Copying players temporarily for future reference in case they will need to play the game again
 		tempPlayers = Player.copyPlayers(players);
 
-		while(Map.size > 0)
+		//looping until at least one player is still playing the game
+		while(players.size() > 0)
 		{
 			int currentPlayers = players.size();
 			
@@ -294,7 +295,6 @@ public class Game
 		System.out.print("Enter size of map : ");
 		try
 		{
-			//int size = keyboard.nextInt();
 			int size = Integer.parseInt(keyboard.nextLine());
 			map = new Map();
 			map.setSize(players.size(), size);
@@ -308,7 +308,6 @@ public class Game
 			System.out.println("You should have entered an integer.");
 			System.exit(0);
 		}
-		
 		
 	}
 	

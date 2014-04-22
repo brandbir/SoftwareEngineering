@@ -46,7 +46,7 @@ public class MapTest {
 		{
 			for(int j=0; j < 6; j++)
 			{
-				if(map.getTileType(i, j) == "#F0E86D")
+				if(map.getTileType(i, j).equals("#F0E86D"))
 					yellowBlocks++;
 			}
 		}
