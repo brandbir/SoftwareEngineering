@@ -146,13 +146,13 @@ public class PlayerTest
 
 		for(int i = 0; i < players.size(); i++)
 		{
-			 x_coord1 = copiedPlayers.get(i).getPosition().getX();
-			 x_coord2 = players.get(i).getPosition().getX();
-			 assertEquals(x_coord1,x_coord2);
-			 
-			 y_coord1 = copiedPlayers.get(i).getPosition().getY();
-			 y_coord2 = players.get(i).getPosition().getY();
-			 assertEquals(y_coord1, y_coord2);
+			x_coord1 = copiedPlayers.get(i).getPosition().getX();
+			x_coord2 = players.get(i).getPosition().getX();
+			assertEquals(x_coord1,x_coord2);
+
+			y_coord1 = copiedPlayers.get(i).getPosition().getY();
+			y_coord2 = players.get(i).getPosition().getY();
+			assertEquals(y_coord1, y_coord2);
 		}	
 	}
 	
