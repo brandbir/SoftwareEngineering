@@ -1,11 +1,11 @@
-package test.java.com.pest.demo;
+package test.java.com.uom.game;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.com.pest.demo.Map;
+import main.java.com.uom.game.Map;
 
 public class MapTest {
 	

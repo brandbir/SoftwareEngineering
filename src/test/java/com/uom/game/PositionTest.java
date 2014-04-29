@@ -1,7 +1,7 @@
-package test.java.com.pest.demo;
+package test.java.com.uom.game;
 
 import static org.junit.Assert.*;
-import main.java.com.pest.demo.Position;
+import main.java.com.uom.game.Position;
 
 import org.junit.Before;
 import org.junit.Test;

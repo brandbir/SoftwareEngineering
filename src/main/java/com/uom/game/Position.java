@@ -1,4 +1,4 @@
-package main.java.com.pest.demo;
+package main.java.com.uom.game;
 
 /**
  * Handles the data of the Player's Position

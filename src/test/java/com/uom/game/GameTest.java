@@ -1,4 +1,4 @@
-package test.java.com.pest.demo;
+package test.java.com.uom.game;
 
 import static org.junit.Assert.*;
 
@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.com.pest.demo.Game;
-import main.java.com.pest.demo.Map;
-import main.java.com.pest.demo.Player;
-import main.java.com.pest.demo.Position;
-import main.java.com.pest.demo.Misc;
+import main.java.com.uom.game.Game;
+import main.java.com.uom.game.Map;
+import main.java.com.uom.game.Misc;
+import main.java.com.uom.game.Player;
+import main.java.com.uom.game.Position;
 
 public class GameTest
 {

@@ -1,4 +1,4 @@
-package main.java.com.pest.demo;
+package main.java.com.uom.game;
 
 import java.util.ArrayList;
 import java.util.Random;
