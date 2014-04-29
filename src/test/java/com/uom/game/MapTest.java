@@ -76,5 +76,18 @@ public class MapTest {
 		}
 		assertEquals(yellowBlocks,1);
 	}
+	
+	/**
+	 * checking getTileType method
+	 */
+	
+	@Test
+	public void getTileTypeTesting()
+	{
+		assertEquals(map.getTileType(Map.TILE_GRASS),"#66BA75");
+		assertEquals(map.getTileType(Map.TILE_WATER), "#949AEF");
+		assertEquals(map.getTileType(Map.TILE_TREASURE), "#F0E86D");
+		assertEquals(map.getTileType(Map.TILE_HIDDEN),"#867878");
+	}
 }
 
