@@ -8,7 +8,7 @@
   <packaging>jar</packaging>
 
   <name>BirminghamSammut Assignment Template</name>
-  <url>http://www.um.edu.mt/ict/cs/pest</url>
+  <url>http://www.um.edu.mt/ict/cs/pest</url> 
 
   <dependencies>
     <dependency>
