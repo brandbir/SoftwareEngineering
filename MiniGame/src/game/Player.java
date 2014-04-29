@@ -38,7 +38,6 @@ public class Player
 	{
 		number = num;
 		position = new Position();
-
 	}
 	
 	/**
@@ -165,5 +164,4 @@ public class Player
 		
 		return pos;
 	}
-	
 }
