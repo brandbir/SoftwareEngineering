@@ -1,4 +1,4 @@
-package test.java.com.pest.demo;
+package tests;
 
 import static org.junit.Assert.*;
 
@@ -8,14 +8,15 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.com.pest.demo.Game;
-import main.java.com.pest.demo.Map;
-import main.java.com.pest.demo.Player;
-import main.java.com.pest.demo.Position;
-import main.java.com.pest.demo.Misc;
+import game.Game;
+import game.Map;
+import game.Player;
+import game.Position;
+import game.Misc;
 
 public class GameTest
 {
+
 	Map map;
 	Player player;
 	ArrayList<Player> players;
@@ -66,13 +67,13 @@ public class GameTest
 	public void testingDeleteFilesMethod() 
 	{
 		File folder = new File("external/maps");
-		
+		int numberOfFiles = folder.list().length;
 		String[] subfiles;
 		
 		Misc.deleteFiles("external/mapssafda");
 		subfiles = folder.list();
 		
-		assertEquals(subfiles.length, 1);
+		assertEquals(subfiles.length, numberOfFiles);
 		
 		Misc.deleteFiles("external/maps");
 		subfiles = folder.list();
