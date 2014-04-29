@@ -67,13 +67,13 @@ public class GameTest
 	public void testingDeleteFilesMethod() 
 	{
 		File folder = new File("external/maps");
-		
+		int numberOfFiles = folder.list().length;
 		String[] subfiles;
 		
 		Misc.deleteFiles("external/mapssafda");
 		subfiles = folder.list();
 		
-		assertEquals(subfiles.length, 1);
+		assertEquals(subfiles.length, numberOfFiles);
 		
 		Misc.deleteFiles("external/maps");
 		subfiles = folder.list();
