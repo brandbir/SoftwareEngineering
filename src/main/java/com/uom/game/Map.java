@@ -28,7 +28,7 @@ public class Map
 	 */
 	public boolean setSize(int players, int mapSize)
 	{
-	    boolean condition = false;
+		boolean condition = false;
 		//added for validation
 		if(players >= 2 && players <= 4)
 		{
@@ -108,7 +108,7 @@ public class Map
 			
 			System.out.println();
 		}
-	}*/
+	}
 
 	/**
 	 * Returns the colour of a particular tile specified by the x-y coordinates

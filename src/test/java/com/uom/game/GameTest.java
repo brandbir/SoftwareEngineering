@@ -28,7 +28,6 @@ public class GameTest
 		getMapTest();
 		map.setSize(4, 5);
 		map.generateMap();
-		
 		players = new ArrayList<Player>();
 	}
 	
@@ -193,14 +192,31 @@ public class GameTest
 	}
 	
 	@Test
-	public void testHandling()
+	public void handlingPlayerEvents()
 	{
 		ArrayList<Player> players = new ArrayList<Player>();
-		Player p5 = new Player(5);
-		Player p6 = new Player(6);
-		players.add(p5);
-		players.add(p6);
-		Game.handlingPlayerEvents(map, players, true, true);
+		Player p1 = new Player(1);
+		Player p2 = new Player(2);
+		
+		players.add(p1);
+		players.add(p2);
+		String userMessage = Game.handlingPlayerEvents(map, players, true, true);
+		
+		int xP1 = p1.getPosition().getX();
+		int yP1 = p1.getPosition().getY();
+		
+		int xP2 = p2.getPosition().getX();
+		int yP2 = p2.getPosition().getY();
+		
+		if((map.getTileType(xP1, yP1) == map.getTileType(Map.TILE_TREASURE)) || 
+		   (map.getTileType(xP2, yP2) == map.getTileType(Map.TILE_TREASURE)))
+		{
+			assertEquals(userMessage, Game.MSG_WINNING);
+		}
+		else
+		{
+			assertEquals(userMessage, Game.MSG_REPEAT);
+		}
 	}
 	
 }

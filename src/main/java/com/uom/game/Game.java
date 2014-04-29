@@ -17,6 +17,9 @@ public class Game
 	private static ArrayList<Player> winners = new ArrayList<Player>();
 	private static ArrayList<Player> tempPlayers;
 	
+	public static final String MSG_WINNING = "We have winners for this Game! Well Done to the Winners";
+	public static final String MSG_REPEAT = "Players, would you like to give another try? Y/N  :";
+	
 	/**
 	 * Starting Game
 	 */
@@ -167,12 +170,12 @@ public class Game
 				else
 				{
 					System.out.println("We have " + winners.size() + " winner/s for this game!");
-					return "We have winners for this Game! Well Done to the Winners";
+					return MSG_WINNING;
 				}
 			}
 		}
 		
-		System.out.print("Players, would you like to give another try? Y/N  :");
+		System.out.print(MSG_REPEAT);
 		
 		if(!test)
 		{
@@ -189,7 +192,7 @@ public class Game
 			}
 		}
 		
-		return "Players, would you like to give another try? Y/N";
+		return MSG_REPEAT;
 	}
 
 	/**
