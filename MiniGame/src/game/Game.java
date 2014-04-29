@@ -158,22 +158,11 @@ public class Game
 						
 						if(nextTile == Map.TILE_WATER)
 						{
-							System.out.println("Game Over Player " + playerNumber);
-							players.remove(i);
 							currentPlayers--;
 							i--;
 						}
 						
-						else if(nextTile == Map.TILE_TREASURE)
-						{
-							setWinners(player);
-							System.out.println("Congratulations Player " + playerNumber + ", you have found the Treasure");
-						}
-						
-						else if(nextTile == Map.TILE_INVALID)
-						{
-							System.out.println("Invalid Direction, move using (U)p, (D)own, (R)ight and (L)eft within the map's boundaries");
-						}
+						movePlayer(nextTile, player);
 					}
 					while(nextTile == Map.TILE_INVALID);
 					
@@ -203,6 +192,47 @@ public class Game
 		}
 	}
 
+	/**
+	 * Removing Player in case he found a water tile
+	 * @param playerNumber the player number
+	 */
+	public static void removePlayer(int playerNumber)
+	{
+		for(int i = 0; i < players.size(); i++)
+		{
+			Player p = players.get(i);
+			
+			if(p.getNumber() == playerNumber)
+			{
+				players.remove(i);
+			}
+		}
+	}
+	
+	/**
+	 * Handling the movement of the player
+	 * @param nextTile the new position of the player
+	 * @param player The player that performed the last movement
+	 */
+	public static void movePlayer(int nextTile, Player player)
+	{
+		if(nextTile == Map.TILE_WATER)
+		{
+			System.out.println("Game Over Player " + player.getNumber());
+			removePlayer(player.getNumber());
+		}
+		
+		else if(nextTile == Map.TILE_TREASURE)
+		{
+			System.out.println("Congratulations Player " + player.getNumber() + ", you have found the Treasure");
+			setWinners(player);
+		}
+		
+		else if(nextTile == Map.TILE_INVALID)
+		{
+			System.out.println("Invalid Direction, move using (U)p, (D)own, (R)ight and (L)eft within the map's boundaries");
+		}
+	}
 	/**
 	 * Generates HTML files
 	 * @param init Whether HTML files are created for initialisation or for updating

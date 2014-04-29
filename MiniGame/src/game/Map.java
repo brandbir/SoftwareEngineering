@@ -62,7 +62,6 @@ public class Map
 		return size;
 	}
 
-	//TODO : We need to make sure that there is a valid path to reach the destination tile
 	/**
 	 * Generates the internal map structure
 	 */
