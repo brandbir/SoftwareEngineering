@@ -15,7 +15,8 @@ import game.Player;
 import game.Position;
 import game.Misc;
 
-public class GameTest{
+public class GameTest
+{
 
 	Game game;
 	Map map;
@@ -81,7 +82,7 @@ public class GameTest{
 		subfiles = folder.list();
 		//System.out.println("No of files in directory" + subfiles.length);
 		
-		assertEquals(subfiles.length,1);
+		assertEquals(subfiles.length, 1);
 		
 		Misc.deleteFiles("external/maps");
 		subfiles = folder.list();
