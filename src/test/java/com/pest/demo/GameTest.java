@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.Game;
-import game.Map;
-import game.Player;
-import game.Position;
-import game.Misc;
+import main.java.com.pest.demo.Game;
+import main.java.com.pest.demo.Map;
+import main.java.com.pest.demo.Player;
+import main.java.com.pest.demo.Position;
+import main.java.com.pest.demo.Misc;
 
 public class GameTest
 {
