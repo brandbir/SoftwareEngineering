@@ -39,7 +39,7 @@ public class Game
 	
 	/**
 	 * Returns player size
-	 * @return int
+	 * @return size
 	 */
 	public static int getPlayerSize()
 	{
@@ -48,7 +48,7 @@ public class Game
 
 	/**
 	 * Returns the number of players that are going to play
-	 * @return int
+	 * @return number of players
 	 */
 	public static int getNumberOfPlayers()
 	{
