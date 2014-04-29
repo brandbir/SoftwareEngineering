@@ -23,8 +23,6 @@ public class PositionTest {
 		pos3 = new Position();
 		pos3.setX(5); // setting positions manually
 		pos3.setY(6);
-		
-		
 	}
 
 	/**
