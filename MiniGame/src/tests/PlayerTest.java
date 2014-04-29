@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import game.Game;
 import game.Map;
 import game.Player;
 import game.Position;
@@ -18,7 +17,6 @@ public class PlayerTest
 	Map map;
 	Player player;
 	Position position;
-	Game game;
 	ArrayList<Player> players;
 	
 	@Before
@@ -26,7 +24,6 @@ public class PlayerTest
 	{
 		map = new Map();
 		player = new Player();
-		game = new Game();
 		map.setSize(4, 5);
 		map.generateMap();
 		
@@ -37,7 +34,9 @@ public class PlayerTest
 		}
 	}
 
-	//testing setNumber and getNumber methods
+	/**
+	 * testing setNumber and getNumber methods
+	 */
 	@Test
 	public void testingNumberOfPlayers()
 	{
@@ -45,20 +44,21 @@ public class PlayerTest
 		assertEquals(player.getNumber(),4);
 	}
 	
-	//ensuring that with an invalid move the position will remain the same
+	/**
+	 * ensuring that with an invalid move the position will remain the same
+	 */
 	@Test
 	public void testingBounderiesL() 
 	{
-		
-		//Position pos = new Position();
 		player.setPosition(map,new Position(0,0));
-		player.move(map,'L');//ivalid char
+		player.move(map,'L');//invalid char
 		Position pos = player.getPosition();
 		
 		//asserting that player did not move 
 		assertEquals(pos.getX(),0);
 		assertEquals(pos.getY(),0);
 		
+		//asserting the type/colour of a particular tile
 		int value = player.setPosition(map, new Position(1,3));
 		if(map.getTileType(1, 3).equals("#66BA75"))
 		{
@@ -78,7 +78,9 @@ public class PlayerTest
 		}
 	}
 	
-	//testing that the up move is working
+	/**
+	 * testing that the up move is working
+	 */
 	@Test
 	public void testingBounderiesU() 
 	{
@@ -93,14 +95,14 @@ public class PlayerTest
 	}
 	
 	
-	//testing that the Down Move is actually working
+	/**
+	 * testing that the Down Move is actually working
+	 */
 	@Test
 	public void testingBounderiesD() 
 	{
-		
-		//Position pos = new Position();
 		player.setPosition(map,new Position(2,2));
-		player.move(map,'D');//ivalid char
+		player.move(map,'D');//invalid char
 		Position pos = player.getPosition();
 		
 		//asserting that player did not move 
@@ -108,14 +110,15 @@ public class PlayerTest
 		assertEquals(pos.getY(),2);
 	}
 	
-	//testing that the right move is actually working
+	/**
+	 * testing that the right move is actually working
+	 */
 	@Test
 	public void testingBounderiesR() 
 	{
 		
-		//Position pos = new Position();
 		player.setPosition(map,new Position(2,2));
-		player.move(map,'R');//ivalid char
+		player.move(map,'R');//invalid char
 		Position pos = player.getPosition();
 		
 		//asserting that player did not move 
@@ -123,18 +126,20 @@ public class PlayerTest
 		assertEquals(pos.getY(),3);
 	}
 	
-	//Testing TILE_INVALID
+	/**
+	 * Testing TILE_INVALID
+	 */
 	@Test
 	public void testingInvalidTile() 
 	{
-		
-		//Position pos = new Position();
 		player.setPosition(map,new Position(2,2));
-		int condition = player.move(map,'M');//ivalid char
+		int condition = player.move(map,'M');//invalid char
 		assertEquals(condition, -1);
 	}
 	
-	//testing copyPlayers method
+	/**
+	 * testing copyPlayers method
+	 */
 	@Test
 	public void copyPlayers()
 	{
@@ -156,7 +161,9 @@ public class PlayerTest
 		}	
 	}
 	
-	//ensuring initial position of player is actually green
+	/**
+	 * ensuring initial position of player is actually green
+	 */
 	@Test
 	public void testingInitialTileType()
 	{

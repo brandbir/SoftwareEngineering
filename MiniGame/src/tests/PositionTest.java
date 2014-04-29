@@ -27,6 +27,9 @@ public class PositionTest {
 		
 	}
 
+	/**
+	 * testing Positions
+	 */
 	@Test
 	public void testingPositions() {
 		//testing position 0,0
@@ -37,14 +40,20 @@ public class PositionTest {
 		assertEquals(pos2.getX(), 3);
 		assertEquals(pos2.getY(), 4);
 	}
+	
+	/**
+	 * asserting setters
+	 */
 	@Test
 	public void testingSetters()
 	{
 		assertEquals(pos3.getX(),5);
 		assertEquals(pos3.getY(),6);
-		
 	}
 	
+	/**
+	 * comparing different positions
+	 */
 	@Test
 	public void testingEqualPositions()
 	{
@@ -55,6 +64,4 @@ public class PositionTest {
 		
 	}
 	
-	
-
 }
