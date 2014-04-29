@@ -42,7 +42,29 @@ public class Game
 	{
 		return map;
 	}
+	
+	/**
+	 * Returns player size
+	 * @return int
+	 */
+	public static int getPlayerSize()
+	{
+		return players.size();
+	}
+	public static void setWinners(Player player)
+	{
+		winners.add(player);
+	}
+	
+	public static int getWinners()
+	{
+		return winners.size();
+	}
 
+	/**
+	 * Returns the number of players that are going to play
+	 * @return int
+	 */
 	public static int getNumberOfPlayers()
 	{
 		int numOfPlayers = -1;
@@ -84,13 +106,15 @@ public class Game
 		return players;
 	}
 
+
+	
 	/**
 	 * Handles all the player events
 	 * 	1. Generation of HTML Files
 	 * 	2. Movement of players
 	 * 	3. Updates corresponding HTML Files
 	 */
-	private static void handlingPlayerEvents(boolean generatePlayerPos)
+	public static void handlingPlayerEvents(boolean generatePlayerPos)
 	{
 		//Generating random position
 		Misc.deleteFiles("external/maps");
@@ -142,8 +166,8 @@ public class Game
 						
 						else if(nextTile == Map.TILE_TREASURE)
 						{
+							setWinners(player);
 							System.out.println("Congratulations Player " + playerNumber + ", you have found the Treasure");
-							winners.add(player);
 						}
 						
 						else if(nextTile == Map.TILE_INVALID)
@@ -289,7 +313,7 @@ public class Game
 	/**
 	 * Starts the Game
 	 */
-	static void startGame()
+	public static void startGame()
 	{
 		int numOfPlayers = getNumberOfPlayers();
 		players = setNumPlayers(numOfPlayers, players);
@@ -301,7 +325,6 @@ public class Game
 			map = new Map();
 			map.setSize(players.size(), size);
 			map.generateMap();
-			map.printMap();
 			handlingPlayerEvents(true);	
 		}
 		catch(Exception e)
