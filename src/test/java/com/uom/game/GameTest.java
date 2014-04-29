@@ -28,9 +28,6 @@ public class GameTest
 		getMapTest();
 		map.setSize(4, 5);
 		map.generateMap();
-
-		player = new Player(1);
-		player.setPosition(map, new Position(1,2));
 		
 		players = new ArrayList<Player>();
 	}
@@ -51,6 +48,9 @@ public class GameTest
 	@Test 
 	public void generateHTMLFile() 
 	{
+		player = new Player(1);
+		player.setPosition(map, new Position(1,2));
+		
 		int condition = Misc.writeToFile(map,"external/maps/map_player_1.html",true,player);
 		assertEquals(condition,1);
 		int condition1 = Misc.writeToFile(map,"external/maps/map_player_1.html",false,player);
@@ -127,8 +127,6 @@ public class GameTest
 	{
 		map.setSize(4, 5);
 		map.generateMap();
-		System.out.println("\n");
-		map.printMap();
 		
 		player = new Player(1);
 		player.setPosition(map, new Position(1,2));
@@ -180,8 +178,6 @@ public class GameTest
 		if(colour == map.getTileType(Map.TILE_TREASURE))
 			assertEquals(winners.size(),1);
 	}
-	
-
 	
 	/**
 	 * testing remove players method
