@@ -210,7 +210,7 @@ public class Game
 	 */
 	private static void generateHTMLFiles(boolean init, Player player)
 	{
-		if(init)
+		if(init) 
 			Misc.writeToFile(map,"external/maps/map_player_" + player.getNumber() +".html", init, player);
 		
 		else
