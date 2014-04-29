@@ -94,7 +94,7 @@ public class Map
 	/**
 	 * Prints the map for testing purposes
 	 */
-	public void printMap()
+	/*public void printMap()
 	{
 		for (int i = 0; i < size; i++)
 		{
@@ -108,7 +108,7 @@ public class Map
 			
 			System.out.println();
 		}
-	}
+	}*/
 
 	/**
 	 * Returns the colour of a particular tile specified by the x-y coordinates

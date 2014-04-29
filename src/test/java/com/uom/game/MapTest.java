@@ -80,7 +80,6 @@ public class MapTest {
 	/**
 	 * checking getTileType method
 	 */
-	
 	@Test
 	public void getTileTypeTesting()
 	{
