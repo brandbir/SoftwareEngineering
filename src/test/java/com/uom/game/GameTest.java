@@ -198,8 +198,11 @@ public class GameTest
 		Player p1 = new Player(1);
 		Player p2 = new Player(2);
 		
+		//Adding Players
 		players.add(p1);
 		players.add(p2);
+		
+		//Automatic Player Handling
 		String userMessage = Game.handlingPlayerEvents(map, players, true, true);
 		
 		int xP1 = p1.getPosition().getX();
@@ -208,6 +211,7 @@ public class GameTest
 		int xP2 = p2.getPosition().getX();
 		int yP2 = p2.getPosition().getY();
 		
+		//Checking the last tile of each player
 		if((map.getTileType(xP1, yP1) == map.getTileType(Map.TILE_TREASURE)) || 
 		   (map.getTileType(xP2, yP2) == map.getTileType(Map.TILE_TREASURE)))
 		{
