@@ -16,14 +16,6 @@ public class LogFile
 	private static File logFile = null;
 	
 	/**
-	 * Default constructor of the LogFile
-	 */
-	public LogFile()
-	{
-		
-	}
-	
-	/**
 	 * Logs an error to the Log File
 	 * @param error The error to be logged
 	 */
