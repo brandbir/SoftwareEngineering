@@ -119,7 +119,6 @@ public class GameTest
 		testingColourBlocks(map.getTileType(Map.TILE_TREASURE));
 	}
 	
-	
 	/**
 	 * testing that winners are being set
 	 */
@@ -147,7 +146,7 @@ public class GameTest
 					}
 					else if(map.getTileType(i, j+1) != null)
 					{
-						player.setPosition(map, new Position(i,j+1)); 
+						player.setPosition(map, new Position(i,j+1));
 						nextTile = player.move(map, 'L');
 						break;
 					}
@@ -160,16 +159,15 @@ public class GameTest
 					else if(map.getTileType(i+1, j) != null)
 					{
 						player.setPosition(map, new Position(i+1,j)); 
-					    nextTile = player.move(map, 'U');
+						nextTile = player.move(map, 'U');
 						break;
 					}
 
 				}
-				  
 			}
 		}
 
-		Game.movePlayer(nextTile, player, winners);
+		Game.movePlayer(nextTile, player, winners, players);
 		
 		if(colour == map.getTileType(Map.TILE_GRASS))
 			assertEquals(winners.size(),0);
@@ -192,6 +190,17 @@ public class GameTest
 		players2.add(p6);
 		players2 = Game.removePlayer(p6.getNumber(), players2);
 		assertEquals(players2.size(),1);
+	}
+	
+	@Test
+	public void testHandling()
+	{
+		ArrayList<Player> players = new ArrayList<Player>();
+		Player p5 = new Player(5);
+		Player p6 = new Player(6);
+		players.add(p5);
+		players.add(p6);
+		Game.handlingPlayerEvents(map, players, true, true);
 	}
 	
 }

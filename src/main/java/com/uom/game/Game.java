@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game
@@ -86,8 +87,6 @@ public class Game
 		}
 		return players;
 	}
-
-
 	
 	/**
 	 * Handles all the player events
@@ -95,10 +94,13 @@ public class Game
 	 * 	2. Movement of players
 	 * 	3. Updates corresponding HTML Files
 	 */
-	public static void handlingPlayerEvents(boolean generatePlayerPos)
+	public static String handlingPlayerEvents(Map map, ArrayList<Player> players, boolean generatePlayerPos, boolean test)
 	{
 		//Generating random position
+		
 		Misc.deleteFiles("external/maps");
+		char directions[] = {'L', 'R', 'U', 'D'};
+		Random ran = new Random();
 		
 		for(int i = 0; i < players.size(); i++)
 		{
@@ -110,7 +112,7 @@ public class Game
 				player.setPosition(map, Player.getInitialPosition(player, map));
 			}
 			
-			generateHTMLFiles(true, player);
+			generateHTMLFiles(true, player, map);
 		}
 		
 		//Copying players temporarily for future reference in case they will need to play the game again
@@ -134,7 +136,19 @@ public class Game
 					{
 						//Get input from each user
 						System.out.print("Player " + playerNumber + ": ");
-						char direction = keyboard.next().charAt(0);
+						Character direction = null;
+						
+						if(!test)
+						{
+							direction = keyboard.next().charAt(0);
+							
+						}
+						else
+						{
+							direction = directions[ran.nextInt(4)];
+							System.out.println("Direction: " + direction + "\n");
+							
+						}
 						nextTile = player.move(map, direction);
 						
 						if(nextTile == Map.TILE_WATER)
@@ -143,34 +157,39 @@ public class Game
 							i--;
 						}
 						
-						movePlayer(nextTile, player, winners);
+						players = movePlayer(nextTile, player, winners, players).get(0);
 					}
 					while(nextTile == Map.TILE_INVALID);
 					
 					//Modify the HTML map for this particular Player
-					generateHTMLFiles(false, player);
+					generateHTMLFiles(false, player, map);
 				}
 				else
 				{
 					System.out.println("We have " + winners.size() + " winner/s for this game!");
-					return;
+					return "We have winners for this Game! Well Done to the Winners";
 				}
 			}
 		}
 		
 		System.out.print("Players, would you like to give another try? Y/N  :");
 		
-		if(keyboard.next().charAt(0) == 'Y')
+		if(!test)
 		{
-			for(Player player : tempPlayers)
-				players.add(player);
-			
-			handlingPlayerEvents(false);
+			if(keyboard.next().charAt(0) == 'Y')
+			{
+				for(Player player : tempPlayers)
+					players.add(player);
+				
+				handlingPlayerEvents(map, players, false, false);
+			}
+			else
+			{
+				System.out.println("Goodbye!");
+			}
 		}
-		else
-		{
-			System.out.println("Goodbye!");
-		}
+		
+		return "Players, would you like to give another try? Y/N";
 	}
 
 	/**
@@ -197,12 +216,14 @@ public class Game
 	 * @param nextTile the new position of the player
 	 * @param player The player that performed the last movement
 	 */
-	public static ArrayList<Player> movePlayer(int nextTile, Player player, ArrayList<Player> winners)
+	public static ArrayList<ArrayList<Player>> movePlayer(int nextTile, Player player, ArrayList<Player> winners, ArrayList<Player> players)
 	{
+		ArrayList<ArrayList<Player>> lists = new ArrayList<ArrayList<Player>>();
+		ArrayList<Player> updatedPlayers = null;;
 		if(nextTile == Map.TILE_WATER)
 		{
 			System.out.println("Game Over Player " + player.getNumber());
-			removePlayer(player.getNumber(), players);
+			updatedPlayers = removePlayer(player.getNumber(), players);
 		}
 		
 		else if(nextTile == Map.TILE_TREASURE)
@@ -215,14 +236,17 @@ public class Game
 		{
 			System.out.println("Invalid Direction, move using (U)p, (D)own, (R)ight and (L)eft within the map's boundaries");
 		}
-		return winners;
+		
+		lists.add(players);
+		lists.add(updatedPlayers);
+		return lists;
 	}
 	/**
 	 * Generates HTML files
 	 * @param init Whether HTML files are created for initialisation or for updating
 	 * @param player Player to which HTML files are to be delivered
 	 */
-	public static void generateHTMLFiles(boolean init, Player player)
+	public static void generateHTMLFiles(boolean init, Player player, Map map)
 	{
 		if(init) 
 			Misc.writeToFile(map,"external/maps/map_player_" + player.getNumber() +".html", init, player);
@@ -339,7 +363,7 @@ public class Game
 			map = new Map();
 			map.setSize(players.size(), size);
 			map.generateMap();
-			handlingPlayerEvents(true);	
+			handlingPlayerEvents(map, players, true, false);	
 		}
 		catch(Exception e)
 		{
