@@ -19,10 +19,6 @@ public class PositionTest {
 		pos = new Position(0,0);
 		pos2 = new Position(3,4);
 		pos4 = new Position(3,4);
-		
-		pos3 = new Position();
-		pos3.setX(5); // setting positions manually
-		pos3.setY(6);
 	}
 
 	/**
@@ -45,6 +41,9 @@ public class PositionTest {
 	@Test
 	public void testingSetters()
 	{
+		pos3 = new Position();
+		pos3.setX(5); // setting positions manually
+		pos3.setY(6);
 		assertEquals(pos3.getX(),5);
 		assertEquals(pos3.getY(),6);
 	}
