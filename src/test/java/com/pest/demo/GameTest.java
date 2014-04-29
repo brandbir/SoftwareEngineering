@@ -1,4 +1,4 @@
-package tests;
+package test.java.com.pest.demo;
 
 import static org.junit.Assert.*;
 
