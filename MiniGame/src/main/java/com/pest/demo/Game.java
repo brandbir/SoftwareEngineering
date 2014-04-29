@@ -1,4 +1,4 @@
-package game;
+package main.java.com.pest.demo;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,7 +12,7 @@ public class Game
 {
 	private static Scanner keyboard = new Scanner(System.in);
 	private static Map map;
-	private static ArrayList<Player> players = new ArrayList<Player>();
+	private static ArrayList<Player> players = new ArrayList<Player>(); 
 	private static ArrayList<Player> winners = new ArrayList<Player>();
 	private static ArrayList<Player> tempPlayers;
 	
@@ -35,7 +35,7 @@ public class Game
 	
 	/**
 	 * Returns player size
-	 * @return the size of the players ArrayList
+	 * @return int
 	 */
 	public static int getPlayerSize()
 	{
@@ -44,7 +44,7 @@ public class Game
 
 	/**
 	 * Returns the number of players that are going to play
-	 * @return  number of players that are going to play
+	 * @return int
 	 */
 	public static int getNumberOfPlayers()
 	{
@@ -86,6 +86,8 @@ public class Game
 		}
 		return players;
 	}
+
+
 	
 	/**
 	 * Handles all the player events
@@ -174,7 +176,6 @@ public class Game
 	/**
 	 * Removing Player in case he found a water tile
 	 * @param playerNumber the player number
-	 * @return updated players arrayList
 	 */
 	public static ArrayList<Player> removePlayer(int playerNumber, ArrayList<Player> players)
 	{
@@ -195,7 +196,6 @@ public class Game
 	 * Handling the movement of the player
 	 * @param nextTile the new position of the player
 	 * @param player The player that performed the last movement
-	 * @return winner arrayList
 	 */
 	public static ArrayList<Player> movePlayer(int nextTile, Player player, ArrayList<Player> winners)
 	{
@@ -215,7 +215,6 @@ public class Game
 		{
 			System.out.println("Invalid Direction, move using (U)p, (D)own, (R)ight and (L)eft within the map's boundaries");
 		}
-		
 		return winners;
 	}
 	/**

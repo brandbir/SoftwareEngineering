@@ -1,4 +1,4 @@
-package game;
+package main.java.com.pest.demo;
 
 import java.io.BufferedWriter;
 import java.io.File;

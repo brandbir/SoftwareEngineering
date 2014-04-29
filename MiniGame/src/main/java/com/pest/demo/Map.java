@@ -1,4 +1,4 @@
-package game;
+package main.java.com.pest.demo;
 
 import java.util.Random;
 import java.util.Scanner;
