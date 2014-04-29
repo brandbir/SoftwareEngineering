@@ -12,7 +12,7 @@ public class Game
 {
 	private static Scanner keyboard = new Scanner(System.in);
 	private static Map map;
-	private static ArrayList<Player> players = new ArrayList<Player>();
+	private static ArrayList<Player> players = new ArrayList<Player>(); 
 	private static ArrayList<Player> winners = new ArrayList<Player>();
 	private static ArrayList<Player> tempPlayers;
 	
