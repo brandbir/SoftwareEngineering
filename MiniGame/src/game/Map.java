@@ -37,6 +37,7 @@ public class Map
 				System.out.print("Size of map should be between 5 and 50.  Please re-enter size : ");
 				mapSize = keyboard.nextInt();
 			}
+			condition = true;
 		}
 		else if(players >=5 && players <= 8)
 		{
@@ -45,8 +46,9 @@ public class Map
 				System.out.println("Size of map should be between 8 and 50.  Please re-enter size : ");
 				mapSize = keyboard.nextInt();
 			}
+			condition = true;
 		}
-		condition = true;
+		
 		colorMapping = new int[mapSize][mapSize];
 		Map.size = mapSize;
 		
@@ -92,7 +94,7 @@ public class Map
 	/**
 	 * Prints the map for testing purposes
 	 */
-	void printMap()
+	public void printMap()
 	{
 		for (int i = 0; i < size; i++)
 		{
@@ -116,7 +118,10 @@ public class Map
 	 */
 	public String getTileType(int x, int y)
 	{
-		return mapColors[colorMapping[x][y]];
+		if((x < 0 || x > Map.size) || (y < 0 || y > Map.size))
+			return null;
+		else
+			return mapColors[colorMapping[x][y]];
 	}
 	
 	/**

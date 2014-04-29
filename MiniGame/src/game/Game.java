@@ -15,16 +15,6 @@ public class Game
 	private static ArrayList<Player> players = new ArrayList<Player>();
 	private static ArrayList<Player> winners = new ArrayList<Player>();
 	private static ArrayList<Player> tempPlayers;
-
-	
-	/**
-	 * Default Constructor which initialises the class variables
-	 */
-	public Game()
-	{
-		map = null;
-		players = null;
-	}
 	
 	/**
 	 * Starting Game
@@ -50,15 +40,6 @@ public class Game
 	public static int getPlayerSize()
 	{
 		return players.size();
-	}
-	public static void setWinners(Player player)
-	{
-		winners.add(player);
-	}
-	
-	public static int getWinners()
-	{
-		return winners.size();
 	}
 
 	/**
@@ -162,7 +143,7 @@ public class Game
 							i--;
 						}
 						
-						movePlayer(nextTile, player);
+						movePlayer(nextTile, player, winners);
 					}
 					while(nextTile == Map.TILE_INVALID);
 					
@@ -196,7 +177,7 @@ public class Game
 	 * Removing Player in case he found a water tile
 	 * @param playerNumber the player number
 	 */
-	public static void removePlayer(int playerNumber)
+	public static ArrayList<Player> removePlayer(int playerNumber, ArrayList<Player> players)
 	{
 		for(int i = 0; i < players.size(); i++)
 		{
@@ -207,6 +188,8 @@ public class Game
 				players.remove(i);
 			}
 		}
+		
+		return players;
 	}
 	
 	/**
@@ -214,31 +197,32 @@ public class Game
 	 * @param nextTile the new position of the player
 	 * @param player The player that performed the last movement
 	 */
-	public static void movePlayer(int nextTile, Player player)
+	public static ArrayList<Player> movePlayer(int nextTile, Player player, ArrayList<Player> winners)
 	{
 		if(nextTile == Map.TILE_WATER)
 		{
 			System.out.println("Game Over Player " + player.getNumber());
-			removePlayer(player.getNumber());
+			removePlayer(player.getNumber(), players);
 		}
 		
 		else if(nextTile == Map.TILE_TREASURE)
 		{
 			System.out.println("Congratulations Player " + player.getNumber() + ", you have found the Treasure");
-			setWinners(player);
+			winners.add(player);
 		}
 		
 		else if(nextTile == Map.TILE_INVALID)
 		{
 			System.out.println("Invalid Direction, move using (U)p, (D)own, (R)ight and (L)eft within the map's boundaries");
 		}
+		return winners;
 	}
 	/**
 	 * Generates HTML files
 	 * @param init Whether HTML files are created for initialisation or for updating
 	 * @param player Player to which HTML files are to be delivered
 	 */
-	private static void generateHTMLFiles(boolean init, Player player)
+	public static void generateHTMLFiles(boolean init, Player player)
 	{
 		if(init) 
 			Misc.writeToFile(map,"external/maps/map_player_" + player.getNumber() +".html", init, player);
