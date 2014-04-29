@@ -88,6 +88,6 @@ public class GameTest
 		subfiles = folder.list();
 		//System.out.println("No of files in directory" + subfiles.length);
 		
-		assertEquals(subfiles.length,0);
+		assertEquals(subfiles.length,0); 
 	}
 }
