@@ -1,4 +1,4 @@
-package game;
+package main.java.com.pest.demo;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,16 +15,6 @@ public class Game
 	private static ArrayList<Player> players = new ArrayList<Player>();
 	private static ArrayList<Player> winners = new ArrayList<Player>();
 	private static ArrayList<Player> tempPlayers;
-
-	
-	/**
-	 * Default Constructor which initialises the class variables
-	 */
-	public Game()
-	{
-		map = null;
-		players = null;
-	}
 	
 	/**
 	 * Starting Game
@@ -42,7 +32,20 @@ public class Game
 	{
 		return map;
 	}
+	
+	/**
+	 * Returns player size
+	 * @return int
+	 */
+	public static int getPlayerSize()
+	{
+		return players.size();
+	}
 
+	/**
+	 * Returns the number of players that are going to play
+	 * @return int
+	 */
 	public static int getNumberOfPlayers()
 	{
 		int numOfPlayers = -1;
@@ -84,13 +87,15 @@ public class Game
 		return players;
 	}
 
+
+	
 	/**
 	 * Handles all the player events
 	 * 	1. Generation of HTML Files
 	 * 	2. Movement of players
 	 * 	3. Updates corresponding HTML Files
 	 */
-	private static void handlingPlayerEvents(boolean generatePlayerPos)
+	public static void handlingPlayerEvents(boolean generatePlayerPos)
 	{
 		//Generating random position
 		Misc.deleteFiles("external/maps");
@@ -134,22 +139,11 @@ public class Game
 						
 						if(nextTile == Map.TILE_WATER)
 						{
-							System.out.println("Game Over Player " + playerNumber);
-							players.remove(i);
 							currentPlayers--;
 							i--;
 						}
 						
-						else if(nextTile == Map.TILE_TREASURE)
-						{
-							System.out.println("Congratulations Player " + playerNumber + ", you have found the Treasure");
-							winners.add(player);
-						}
-						
-						else if(nextTile == Map.TILE_INVALID)
-						{
-							System.out.println("Invalid Direction, move using (U)p, (D)own, (R)ight and (L)eft within the map's boundaries");
-						}
+						movePlayer(nextTile, player, winners);
 					}
 					while(nextTile == Map.TILE_INVALID);
 					
@@ -180,13 +174,57 @@ public class Game
 	}
 
 	/**
+	 * Removing Player in case he found a water tile
+	 * @param playerNumber the player number
+	 */
+	public static ArrayList<Player> removePlayer(int playerNumber, ArrayList<Player> players)
+	{
+		for(int i = 0; i < players.size(); i++)
+		{
+			Player p = players.get(i);
+			
+			if(p.getNumber() == playerNumber)
+			{
+				players.remove(i);
+			}
+		}
+		
+		return players;
+	}
+	
+	/**
+	 * Handling the movement of the player
+	 * @param nextTile the new position of the player
+	 * @param player The player that performed the last movement
+	 */
+	public static ArrayList<Player> movePlayer(int nextTile, Player player, ArrayList<Player> winners)
+	{
+		if(nextTile == Map.TILE_WATER)
+		{
+			System.out.println("Game Over Player " + player.getNumber());
+			removePlayer(player.getNumber(), players);
+		}
+		
+		else if(nextTile == Map.TILE_TREASURE)
+		{
+			System.out.println("Congratulations Player " + player.getNumber() + ", you have found the Treasure");
+			winners.add(player);
+		}
+		
+		else if(nextTile == Map.TILE_INVALID)
+		{
+			System.out.println("Invalid Direction, move using (U)p, (D)own, (R)ight and (L)eft within the map's boundaries");
+		}
+		return winners;
+	}
+	/**
 	 * Generates HTML files
 	 * @param init Whether HTML files are created for initialisation or for updating
 	 * @param player Player to which HTML files are to be delivered
 	 */
-	private static void generateHTMLFiles(boolean init, Player player)
+	public static void generateHTMLFiles(boolean init, Player player)
 	{
-		if(init)
+		if(init) 
 			Misc.writeToFile(map,"external/maps/map_player_" + player.getNumber() +".html", init, player);
 		
 		else
@@ -289,7 +327,7 @@ public class Game
 	/**
 	 * Starts the Game
 	 */
-	static void startGame()
+	public static void startGame()
 	{
 		int numOfPlayers = getNumberOfPlayers();
 		players = setNumPlayers(numOfPlayers, players);
@@ -301,7 +339,6 @@ public class Game
 			map = new Map();
 			map.setSize(players.size(), size);
 			map.generateMap();
-			//map.printMap();
 			handlingPlayerEvents(true);	
 		}
 		catch(Exception e)

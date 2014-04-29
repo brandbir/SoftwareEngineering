@@ -1,7 +1,7 @@
-package tests;
+package test.java.com.pest.demo;
 
 import static org.junit.Assert.*;
-import game.Position;
+import main.java.com.pest.demo.Position;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,10 +23,11 @@ public class PositionTest {
 		pos3 = new Position();
 		pos3.setX(5); // setting positions manually
 		pos3.setY(6);
-		
-		
 	}
 
+	/**
+	 * testing Positions
+	 */
 	@Test
 	public void testingPositions() {
 		//testing position 0,0
@@ -37,14 +38,20 @@ public class PositionTest {
 		assertEquals(pos2.getX(), 3);
 		assertEquals(pos2.getY(), 4);
 	}
+	
+	/**
+	 * asserting setters
+	 */
 	@Test
 	public void testingSetters()
 	{
 		assertEquals(pos3.getX(),5);
 		assertEquals(pos3.getY(),6);
-		
 	}
 	
+	/**
+	 * comparing different positions
+	 */
 	@Test
 	public void testingEqualPositions()
 	{
@@ -55,6 +62,4 @@ public class PositionTest {
 		
 	}
 	
-	
-
 }

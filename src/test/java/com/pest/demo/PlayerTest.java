@@ -1,13 +1,12 @@
-package tests;
+package test.java.com.pest.demo;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import game.Game;
-import game.Map;
-import game.Player;
-import game.Position;
+import main.java.com.pest.demo.Map;
+import main.java.com.pest.demo.Player;
+import main.java.com.pest.demo.Position;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +17,6 @@ public class PlayerTest
 	Map map;
 	Player player;
 	Position position;
-	Game game;
 	ArrayList<Player> players;
 	
 	@Before
@@ -26,7 +24,6 @@ public class PlayerTest
 	{
 		map = new Map();
 		player = new Player();
-		game = new Game();
 		map.setSize(4, 5);
 		map.generateMap();
 		
@@ -61,6 +58,7 @@ public class PlayerTest
 		assertEquals(pos.getX(),0);
 		assertEquals(pos.getY(),0);
 		
+		//asserting the type/colour of a particular tile
 		int value = player.setPosition(map, new Position(1,3));
 		if(map.getTileType(1, 3).equals("#66BA75"))
 		{

@@ -1,4 +1,4 @@
-package com.pest.suite;
+package main.java.com.pest.suite;
 
 /**
  * This class constitutes the main entry point for PESTSuite.

@@ -1,8 +1,8 @@
-package com.pest.suite;
+package test.java.com.pest.suite;
 
 import static org.junit.Assert.*;
+import main.java.com.pest.suite.Launcher;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class TestLauncher {
