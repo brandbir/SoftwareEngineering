@@ -49,14 +49,14 @@ public class Misc
 	 * @param init initialisation/updating 
 	 * @param player Player Object
 	 */
-	public static int writeToFile(Map map, String filePath, boolean init, Player player)
+	public static int writeToFile(Map map, String filePath, boolean init, Player player, Position position)
 	{
 		String updatedHTML = "";
 		int fileCreated = Misc.SUCCESS;
 		
 		//Getting the updatedHTML the player
 		if(!init)
-			updatedHTML = Game.updateHTML(map,player);
+			updatedHTML = Game.updateHTML(map,player, position);
 		
 		try
 		{
@@ -77,5 +77,15 @@ public class Misc
 		}
 		
 		return fileCreated;
+	}
+	
+	/**
+	 * Creates a directory in the file system
+	 * @param path directory's path
+	 */
+	public static void createDirectory(String path)
+	{
+		File dir = new File(path);
+		dir.mkdir();
 	}
 }

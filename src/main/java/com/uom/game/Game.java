@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -13,9 +14,11 @@ public class Game
 {
 	private static Scanner keyboard = new Scanner(System.in);
 	private static Map map;
+	private static ArrayList<Team> teams = new ArrayList<Team>();
 	private static ArrayList<Player> players = new ArrayList<Player>(); 
 	private static ArrayList<Player> winners = new ArrayList<Player>();
 	private static ArrayList<Player> tempPlayers;
+	private static int numberOfTeams = 0;
 	
 	public static final String MSG_WINNING = "We have winners for this Game! Well Done to the Winners";
 	public static final String MSG_REPEAT = "Players, would you like to give another try? Y/N  :";
@@ -83,12 +86,36 @@ public class Game
 	 */
 	public static ArrayList<Player> setNumPlayers(int numOfPlayers, ArrayList<Player> players)
 	{
-
+		Random random = new Random();
+		
 		for(int i = 0; i < numOfPlayers; i++)
 		{
-			players.add(new Player(i + 1));
+			//Initialisation of a new player
+			Player player = new Player(i + 1);
+			players.add(player);
+			
+			
+			if(getNumberOfTeams() != 0)
+			{
+				//selecting a random team in which the player will be part of
+				int team = random.nextInt(getNumberOfTeams());
+				Team selectedTeam = teams.get(team);
+				player.setTeam(selectedTeam);
+				selectedTeam.addObserver(player);
+			}
 		}
+		
 		return players;
+	}
+	
+	public static void setNumberOfTeams(int t)
+	{
+		numberOfTeams = t;
+	}
+	
+	public static int getNumberOfTeams()
+	{
+		return numberOfTeams;
 	}
 	
 	/**
@@ -104,6 +131,7 @@ public class Game
 		Misc.deleteFiles("external/maps");
 		char directions[] = {'L', 'R', 'U', 'D'};
 		Random ran = new Random();
+		Team playerTeam;
 		
 		for(int i = 0; i < players.size(); i++)
 		{
@@ -115,7 +143,7 @@ public class Game
 				player.setPosition(map, Player.getInitialPosition(player, map));
 			}
 			
-			generateHTMLFiles(true, player, map);
+			generateHTMLFiles(true, player, map, player.getPosition());
 		}
 		
 		//Copying players temporarily for future reference in case they will need to play the game again
@@ -133,6 +161,7 @@ public class Game
 				{
 					Player player = players.get(i);
 					int playerNumber = player.getNumber();
+					playerTeam = player.getTeam();
 					int nextTile;
 					
 					do
@@ -165,11 +194,25 @@ public class Game
 					while(nextTile == Map.TILE_INVALID);
 					
 					//Modify the HTML map for this particular Player
-					generateHTMLFiles(false, player, map);
+					
+					//At this point, html is changed for a particular player. We need to alter the html for every player
+					//of that particular team
+					
+					if(getNumberOfTeams() == 0)
+						generateHTMLFiles(false, player, map, player.getPosition());
+					else
+						playerTeam.updateHTMLTeam(player.getPosition());
 				}
 				else
 				{
 					System.out.println("We have " + winners.size() + " winner/s for this game!");
+					if(teams.size() != 0)
+					{
+						for(int j = 0; j < winners.size(); j++)
+						{
+							System.out.println("Team " + winners.get(j).getTeam().getTeamLetter() + " has won this game!");
+						}
+					}
 					return MSG_WINNING;
 				}
 			}
@@ -181,8 +224,20 @@ public class Game
 		{
 			if(keyboard.next().charAt(0) == 'Y')
 			{
+				if(teams.size() != 0)
+				{
+					//Removing  old observers
+					for(int i = 0; i < teams.size(); i++)
+					{
+						teams.get(i).deleteObservers();
+					}
+				}
 				for(Player player : tempPlayers)
+				{
 					players.add(player);
+					if(teams.size() != 0)
+						player.getTeam().addObserver(player);
+				}
 				
 				handlingPlayerEvents(map, players, false, false);
 			}
@@ -249,13 +304,13 @@ public class Game
 	 * @param init Whether HTML files are created for initialisation or for updating
 	 * @param player Player to which HTML files are to be delivered
 	 */
-	public static void generateHTMLFiles(boolean init, Player player, Map map)
+	public static void generateHTMLFiles(boolean init, Player player, Map map, Position pos)
 	{
 		if(init) 
-			Misc.writeToFile(map,"external/maps/map_player_" + player.getNumber() +".html", init, player);
+			Misc.writeToFile(map,"external/maps/map_player_" + player.getNumber() +".html", init, player, pos);
 		
 		else
-			Misc.writeToFile(map,"external/maps/map_player_" + player.getNumber() +".html", false, player);
+			Misc.writeToFile(map,"external/maps/map_player_" + player.getNumber() +".html", false, player, pos);
 	}
 	
 	/**
@@ -294,7 +349,16 @@ public class Game
 			.append("\t\t<table style='width:40%; margin-left:auto; margin-right:auto'>\n")
 			.append("\t\t\t<tr>\n")
 			.append("\t\t\t\t<td id='header' colspan='" + map.getSize())
-			.append("' style='font-size:20px; text-align:center; font-style:italic'> miniGame - Player ")
+			.append("' style='font-size:20px; text-align:center; font-style:italic'>");
+	
+		if(player.getTeam() != null)
+		{
+			buff.append("Team ")
+				.append(player.getTeam().getTeamLetter())
+				.append(" - ");
+		}
+		
+		buff.append("Player ")
 			.append(player.getNumber() + " </td>\n")
 			.append("\t\t\t</tr>\n");
 		
@@ -335,13 +399,20 @@ public class Game
 			.append("\t\t\t\tdocument.location=document.location.href;\n")
 			.append("\t\t\t}\n")
 			.append("\n\t\t\ttimer=setTimeout(refreshmypage,1000);\n")
-			.append("\n\t\t\tfunction updatePosition(x, y, color)\n")
+			.append("\n\t\t\tfunction updatePosition(x, y, color, changePos)\n")
 			.append("\t\t\t{\n")
 			.append("\t\t\t\tdocument.getElementById(x + \'-\' + y).style.backgroundColor = color;\n")
-			.append("\t\t\t\tvar currentPos = document.getElementById('currentPosition');\n")
-			.append("\t\t\t\tcurrentPos.parentNode.removeChild(currentPos);\n")
-			.append("\t\t\t\tvar newPos = document.getElementById(x + \'-\' + y);\n")
-			.append("\t\t\t\tnewPos.appendChild(currentPos);\n")
+			.append("\t\t\t\tif(changePos)\n")
+			.append("\t\t\t\t{\n")
+			.append("\t\t\t\t\tvar currentPos = document.getElementById('currentPosition');\n")
+			.append("\t\t\t\t\tcurrentPos.parentNode.removeChild(currentPos);\n")
+			.append("\t\t\t\t\tvar newPos = document.getElementById(x + \'-\' + y);\n")
+			.append("\t\t\t\t\tnewPos.appendChild(currentPos);\n")
+			.append("\t\t\t\t}\n")
+			.append("\t\t\t\telse\n")
+			.append("\t\t\t\t{\n")
+			.append("\t\t\t\t\tdocument.getElementById(x + '-' + y).style.opacity = '0.65';\n")
+			.append("\t\t\t\t}\n")
 			.append("\t\t\t}\n\n")
 			.append("\t\t\t//Player Directions\n")
 			.append("\t\t</script>\n")
@@ -356,6 +427,12 @@ public class Game
 	 */
 	public static void startGame()
 	{
+		//Creating a directory to hold HTML files for the players
+		Misc.createDirectory("external/maps");
+		
+		//checks for a collaborative or individual game
+		collaborativeMode();
+		
 		int numOfPlayers = getNumberOfPlayers();
 		players = setNumPlayers(numOfPlayers, players);
 		
@@ -368,7 +445,7 @@ public class Game
 			map.generateMap();
 			handlingPlayerEvents(map, players, true, false);	
 		}
-		catch(Exception e)
+		catch(NumberFormatException e)
 		{
 			LogFile.logError("Input error :: " + e.getMessage());
 			System.out.println("You should have entered an integer.");
@@ -382,10 +459,11 @@ public class Game
 	 * @param player Player that wants his map to be updated
 	 * @return updated HTML
 	 */
-	public static String updateHTML(Map map,Player player)
+	public static String updateHTML(Map map, Player player, Position p)
 	{
 		BufferedReader reader = null;
 		StringBuilder buff = new StringBuilder();
+		boolean changePos = true;
 		
 		try
 		{
@@ -405,8 +483,13 @@ public class Game
 			while ((line = reader.readLine()) !=null && !line.contains("//Player Directions"))
 				buff.append(line + "\n");
 			
-			int x = player.getPosition().getX();
-			int y = player.getPosition().getY();
+			int x = p.getX();
+			int y = p.getY();
+			
+			if(!(player.getPosition().equals(p)))
+			{
+				changePos = false;
+			}
 			
 			//Updating the HTML File with the new Position of the player
 			buff.append("\t\t\tupdatePosition(")
@@ -415,7 +498,9 @@ public class Game
 				.append(y)
 				.append(",'")
 				.append(map.getTileType(x, y))
-				.append("');\n")
+				.append("', ")
+				.append(changePos)
+				.append(");\n")
 				.append("\t\t\t//Player Directions\n");
 
 			//Continue reading the rest of the file after appending the direction of the 
@@ -431,5 +516,52 @@ public class Game
 		}
 		
 		return buff.toString();
+	}
+	
+	/**
+	 * Handling input data regarding Collaborative Mode
+	 */
+	public static void collaborativeMode()
+	{
+		System.out.print("Do you want to play in collabaritve mode? <Y/N> ");
+		String choice = " ";
+		boolean flag = false;
+		
+		while(!choice.equals("Y") & !choice.equals("N"))
+		{
+			choice = keyboard.nextLine();
+			
+			if(choice.equals("Y"))
+			{
+				//handling multiple teams;
+				System.out.print("How many teams are going to play? ");
+				do
+				{
+					try
+					{
+						numberOfTeams = keyboard.nextInt();
+						keyboard.nextLine();
+						Game.setNumberOfTeams(numberOfTeams);
+						
+						for(int i = 0; i < getNumberOfTeams(); i++)
+							teams.add(new Team(i + 1));
+						
+						flag = false;
+					}
+					catch(InputMismatchException e)
+					{
+						System.out.print("Please make sure to input an integer: ");
+						keyboard.nextLine();
+						flag = true;
+					}
+				}
+				while(flag);
+			}
+			
+			else if(!choice.equals("N"))
+			{
+				System.out.print("Enter a valid input please <Y/N>: ");
+			}
+		}
 	}
 }

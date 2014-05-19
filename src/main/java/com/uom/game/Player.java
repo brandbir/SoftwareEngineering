@@ -1,16 +1,19 @@
 package main.java.com.uom.game;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Random;
+import java.util.Observer;
 
 /**
  * Handles the functionality of the Player
  *
  */
-public class Player
+public class Player implements Observer
 {
 	private Position position;
 	private int number;
+	private Team team = null;
 	
 	/**
 	 * Default Player Constructor
@@ -29,7 +32,9 @@ public class Player
 		number = p.getNumber();
 		Position pos = p.getPosition();
 		position = new Position(pos.getX(), pos.getY());
+		team = p.getTeam();
 	}
+	
 	/**
 	 * Player Constructor with a particular number
 	 * @param number - identification number
@@ -40,6 +45,7 @@ public class Player
 		position = new Position();
 
 	}
+	
 	
 	/**
 	 * Gets the current position of the player
@@ -66,6 +72,20 @@ public class Player
 	public int getNumber()
 	{
 		return number;
+	}
+	
+	/**
+	 * Gets the team of the player
+	 * @return Team
+	 */
+	public Team getTeam()
+	{
+		return team;
+	}
+	
+	public void setTeam(Team t)
+	{
+		team = t;
 	}
 	
 	/**
@@ -150,6 +170,13 @@ public class Player
 		return copiedPlayers;
 	}
 	
+	/**
+	 * Gets the initial position of a particular player. This is 
+	 * the exact position from which he starts the game
+	 * @param player player to obtain his first initial position
+	 * @param map game map
+	 * @return initial position of the player
+	 */
 	public static Position getInitialPosition(Player player, Map map)
 	{
 		Position pos = null;
@@ -165,5 +192,15 @@ public class Player
 		
 		return pos;
 	}
+
 	
+	/**
+	 * This overriding method is used by each Team to update the HTML map for
+	 * every player within the team if the game is being played in a collaborative mode 
+	 */
+	@Override
+	public void update(Observable t, Object arg)
+	{
+		Game.generateHTMLFiles(false, this, Game.getMap(), (Position)arg);
+	}
 }

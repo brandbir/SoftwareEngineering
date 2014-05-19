@@ -1,18 +1,21 @@
 package test.java.com.uom.game;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.File;
 import java.util.ArrayList;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import main.java.com.uom.game.Game;
 import main.java.com.uom.game.Map;
 import main.java.com.uom.game.Misc;
 import main.java.com.uom.game.Player;
 import main.java.com.uom.game.Position;
+import main.java.com.uom.game.Team;
+
+import org.junit.Before;
+import org.junit.Test;
 
 public class GameTest
 {
@@ -50,12 +53,12 @@ public class GameTest
 		player = new Player(1);
 		player.setPosition(map, new Position(1,2));
 		
-		int condition = Misc.writeToFile(map,"external/maps/map_player_1.html",true,player);
+		int condition = Misc.writeToFile(map,"external/maps/map_player_1.html",true, player, player.getPosition());
 		assertEquals(condition,1);
-		int condition1 = Misc.writeToFile(map,"external/maps/map_player_1.html",false,player);
+		int condition1 = Misc.writeToFile(map,"external/maps/map_player_1.html",false,player, player.getPosition());
 		assertEquals(condition1,1);
 		
-		int condition2 = Misc.writeToFile(map,"external/map/map_player_1.html",false,player);
+		int condition2 = Misc.writeToFile(map,"external/map/map_player_1.html",false,player, player.getPosition());
 		assertEquals(condition2,-1);
 	}
 	
@@ -191,6 +194,9 @@ public class GameTest
 		assertEquals(players2.size(),1);
 	}
 	
+	/**
+	 * Simulating an testing player events
+	 */
 	@Test
 	public void handlingPlayerEvents()
 	{
@@ -220,6 +226,23 @@ public class GameTest
 		else
 		{
 			assertEquals(userMessage, Game.MSG_REPEAT);
+		}
+	}
+	
+	/**
+	 * Testing conversion between integer to string for team letters
+	 */
+	@Test
+	public void teamLetter()
+	{
+		String capitalAlphabet[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+									"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+		
+		for(int i = 0; i < capitalAlphabet.length; i++)
+		{
+			Team team = new Team(i + 1);
+			System.out.println(team.getTeamLetter());
+			assertEquals(capitalAlphabet[i], team.getTeamLetter());
 		}
 	}
 	
