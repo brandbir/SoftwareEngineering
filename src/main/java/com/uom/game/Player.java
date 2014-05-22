@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
 import java.util.Observer;
+import factory.java.com.uom.game.Map;
 
 /**
  * Handles the functionality of the Player

@@ -4,7 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import main.java.com.uom.game.Map;
+import factory.java.com.uom.game.Map;
+import factory.java.com.uom.game.SafeMap;
 import main.java.com.uom.game.Player;
 import main.java.com.uom.game.Position;
 
@@ -21,11 +22,9 @@ public class PlayerTest
 	@Before
 	public void before()
 	{
-		map = new Map();
+		map = SafeMap.getInstance(4, 5); //setting 4 players with map size of 5*5
 		player = new Player();
-		map.setSize(4, 5);  //setting a map of size 5 with 4 players
 		map.generateMap();
-		
 		players = new ArrayList<Player>();
 	}
 

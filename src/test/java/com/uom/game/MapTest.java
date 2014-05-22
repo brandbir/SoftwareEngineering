@@ -5,7 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.com.uom.game.Map;
+import factory.java.com.uom.game.Map;
+import factory.java.com.uom.game.SafeMap;
 
 public class MapTest {
 	
@@ -14,8 +15,7 @@ public class MapTest {
 	@Before
 	public void before() 
 	{
-		map = new Map();
-		map.setSize(3,5);
+		map = SafeMap.getInstance(3, 5);
 		map.generateMap();
 	}
 	

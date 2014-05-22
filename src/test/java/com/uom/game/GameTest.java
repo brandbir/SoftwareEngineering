@@ -1,5 +1,8 @@
 package test.java.com.uom.game;
 
+
+import factory.java.com.uom.game.Map;
+import factory.java.com.uom.game.SafeMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -8,7 +11,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import main.java.com.uom.game.Game;
-import main.java.com.uom.game.Map;
 import main.java.com.uom.game.Misc;
 import main.java.com.uom.game.Player;
 import main.java.com.uom.game.Position;
@@ -27,7 +29,7 @@ public class GameTest
 	@Before
 	public void before()
 	{
-		map = new Map();
+		map = SafeMap.getInstance(3, 5);;
 		getMapTest();
 		map.setSize(4, 5);
 		map.generateMap();

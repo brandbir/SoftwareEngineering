@@ -10,6 +10,9 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
+import factory.java.com.uom.game.Map;
+import factory.java.com.uom.game.MapCreator;
+
 public class Game
 {
 	private static Scanner keyboard = new Scanner(System.in);
@@ -438,11 +441,13 @@ public class Game
 		
 		System.out.print("Enter size of map : ");
 		try
-		{
+		{  
 			int size = Integer.parseInt(keyboard.nextLine());
-			map = new Map();
-			map.setSize(players.size(), size);
-			map.generateMap();
+			System.out.println("Enter Safe or Hazardous Map : ");
+			String choice = keyboard.next();
+			MapCreator create = new MapCreator();
+			map = create.createMap(choice, numOfPlayers, size);
+			//map.generateMap();
 			handlingPlayerEvents(map, players, true, false);	
 		}
 		catch(NumberFormatException e)
@@ -459,7 +464,7 @@ public class Game
 	 * @param player Player that wants his map to be updated
 	 * @return updated HTML
 	 */
-	public static String updateHTML(Map map, Player player, Position p)
+	public static String updateHTML(Map map2, Player player, Position p)
 	{
 		BufferedReader reader = null;
 		StringBuilder buff = new StringBuilder();
@@ -497,7 +502,7 @@ public class Game
 				.append(", ")
 				.append(y)
 				.append(",'")
-				.append(map.getTileType(x, y))
+				.append(map2.getTileType(x, y))
 				.append("', ")
 				.append(changePos)
 				.append(");\n")
