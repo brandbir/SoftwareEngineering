@@ -22,7 +22,7 @@ public class HazardousMapTest {
 			 */
 		@Test
 		public void testingGenerate36()
-		{
+		{ 
 			map.setSize(3, 6); //3 players with a mapsize of 6
 			
 			int minWater = (int) Math.ceil(6 * 6 * 0.25);

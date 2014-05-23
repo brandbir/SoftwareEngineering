@@ -25,8 +25,9 @@ public class MapCreatorTest {
 			String packageName = c.getName(); 
 			String className = c.getSimpleName();
 			
+			System.out.println(" + " + packageName);
 			assertEquals("main.java.com.uom.factory.HazardousMap", packageName);
-			assertEquals("HazardousMap", className);
+			assertEquals("HazardousMap", className); 
 			
 			createdMap = create.createMap("safe", 3, 5);
 			
