@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import factory.java.com.uom.game.Map;
-import factory.java.com.uom.game.SafeMap;
+import main.java.com.uom.factory.Map;
+import main.java.com.uom.factory.SafeMap;
 import main.java.com.uom.game.Player;
 import main.java.com.uom.game.Position;
 

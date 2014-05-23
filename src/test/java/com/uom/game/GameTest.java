@@ -1,8 +1,6 @@
 package test.java.com.uom.game;
 
 
-import factory.java.com.uom.game.Map;
-import factory.java.com.uom.game.SafeMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -10,6 +8,8 @@ import static org.junit.Assert.assertNull;
 import java.io.File;
 import java.util.ArrayList;
 
+import main.java.com.uom.factory.Map;
+import main.java.com.uom.factory.SafeMap;
 import main.java.com.uom.game.Game;
 import main.java.com.uom.game.Misc;
 import main.java.com.uom.game.Player;

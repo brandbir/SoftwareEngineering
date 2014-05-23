@@ -4,7 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import factory.java.com.uom.game.Map;
+
+import main.java.com.uom.factory.Map;
 
 /**
  * A class that handles general methods used by miniGame

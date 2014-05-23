@@ -1,12 +1,11 @@
 package test.java.com.uom.game;
 
 import static org.junit.Assert.*;
+import main.java.com.uom.factory.HazardousMap;
+import main.java.com.uom.factory.Map;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import factory.java.com.uom.game.HazardousMap;
-import factory.java.com.uom.game.Map;
 
 public class HazardousMapTest {
 
@@ -28,10 +27,6 @@ public class HazardousMapTest {
 			
 			int minWater = (int) Math.ceil(6 * 6 * 0.25);
 			int maxWater = (int) Math.floor(6 * 6 * 0.35);  //using floor to ensure it is less than 35%
-			
-			System.out.println("minimum Water" + minWater);
-			System.out.println("maximum Water" + maxWater);
-			
 			
 			map.generateMap();
 			

@@ -1,12 +1,11 @@
 package test.java.com.uom.game;
 
 import static org.junit.Assert.*;
+import main.java.com.uom.factory.Map;
+import main.java.com.uom.factory.SafeMap;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import factory.java.com.uom.game.Map;
-import factory.java.com.uom.game.SafeMap;
 
 public class MapTest {
 	

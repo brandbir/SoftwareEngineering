@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
 import java.util.Observer;
-import factory.java.com.uom.game.Map;
+
+import main.java.com.uom.factory.Map;
 
 /**
  * Handles the functionality of the Player
@@ -131,13 +132,13 @@ public class Player implements Observer
 		//Checking that the position is within the game's map
 		if((x >= 0 && x < map.getSize()) && (y >= 0 && y < map.getSize()))
 		{
-			if(map.colorMapping[x][y] == Map.TILE_GRASS)
+			if(Map.colorMapping[x][y] == Map.TILE_GRASS)
 			{
 				newPos = Map.TILE_GRASS;
 			}
 			else
 			{
-				if(map.colorMapping[x][y] == Map.TILE_TREASURE)
+				if(Map.colorMapping[x][y] == Map.TILE_TREASURE)
 					newPos = Map.TILE_TREASURE;
 				
 				else

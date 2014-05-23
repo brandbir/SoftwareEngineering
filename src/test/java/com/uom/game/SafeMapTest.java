@@ -2,15 +2,11 @@ package test.java.com.uom.game;
 
 import static org.junit.Assert.*;
 
-import java.util.Random;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
+import main.java.com.uom.factory.Map;
+import main.java.com.uom.factory.SafeMap;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import factory.java.com.uom.game.Map;
-import factory.java.com.uom.game.SafeMap;
 
 public class SafeMapTest {
 
@@ -46,7 +42,7 @@ public class SafeMapTest {
 					blueBlocks++;
 				if(map.getTileType(i, j).equals("#F0E86D"))
 					yellowBlocks++;
-			}
+			} 
 		}
 		
 		assertEquals(yellowBlocks,1);
@@ -57,7 +53,6 @@ public class SafeMapTest {
 			condition = true;
 		
 		assertTrue(condition); 
-		
 		
 	}
 }

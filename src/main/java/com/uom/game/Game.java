@@ -10,8 +10,8 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-import factory.java.com.uom.game.Map;
-import factory.java.com.uom.game.MapCreator;
+import main.java.com.uom.factory.Map;
+import main.java.com.uom.factory.MapCreator;
 
 public class Game
 {
