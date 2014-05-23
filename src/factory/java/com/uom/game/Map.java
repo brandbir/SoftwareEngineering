@@ -1,6 +1,5 @@
-package main.java.com.uom.game;
+package factory.java.com.uom.game;
 
-import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -8,10 +7,10 @@ import java.util.Scanner;
  * generated Map that will be used for the duration of
  * the Game
  */
-public class Map
+public abstract class Map
 {
 	static int size;
-	int[][] colorMapping;
+	public static int[][] colorMapping; 
 	private String[] mapColors = {"#66BA75", "#949AEF", "#F0E86D", "#867878"};
 	private static Scanner keyboard = new Scanner(System.in);
 	
@@ -22,6 +21,15 @@ public class Map
 	public static final int TILE_TREASURE	= 2;
 	public static final int TILE_HIDDEN		= 3;
 
+	//creating it for singleton pattern
+	protected static Map mapInstance = null;   
+	
+	protected Map(int noOfPlayers, int mapSize)
+	{
+		setSize(noOfPlayers, mapSize);
+		generateMap();
+	}
+	
 	/**
 	 * Sets the size of the Map
 	 * @param size map size
@@ -66,36 +74,15 @@ public class Map
 
 	/**
 	 * Generates the internal map structure
+	 * @return number of blue blocks
 	 */
-	public void generateMap()
-	{
-		Random ran = new Random();
+	public abstract int generateMap(); 
 
-		for (int i = 0; i < size; i++)
-		{
-			for (int j = 0; j < size; j++)
-			{
-				int x = ran.nextInt(5);
-				
-				if (x < 4)
-					colorMapping[i][j] = 0;
-				else
-					colorMapping[i][j] = 1;
-			}
-		}
-
-		// assigning yellow block
-		int row = ran.nextInt(size);
-		int col = ran.nextInt(size);
-
-		colorMapping[row][col] = 2;
-	}
 
 	/**
 	 * Prints the map for testing purposes
 	 */
-	
-	/*public void printMap()
+	public static void printMap()
 	{
 		for (int i = 0; i < size; i++)
 		{
@@ -109,7 +96,7 @@ public class Map
 			
 			System.out.println();
 		}
-	}*/
+	}
 
 	/**
 	 * Returns the colour of a particular tile specified by the x-y coordinates
@@ -134,4 +121,8 @@ public class Map
 	{
 		return mapColors[code];
 	}
+	
+	
+	
+	
 }
