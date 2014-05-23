@@ -19,25 +19,16 @@ public class MapCreatorTest {
 	@Test 
 	public void intializationTest1() {
 		
-			createdMap = create.createMap("hazardous", 3, 5);
+		System.out.println(System.currentTimeMillis());
+			createdMap = create.createMap("safe", 3, 5);
 			
 			Class<? extends Map> c = createdMap.getClass(); 
 			String packageName = c.getName(); 
 			String className = c.getSimpleName();
 			
-			System.out.println(" + " + packageName);
-			assertEquals("main.java.com.uom.factory.HazardousMap", packageName);
+			assertEquals("main.java.com.uom.factory.SafeMap", packageName);
 			assertEquals("HazardousMap", className); 
 			
-			createdMap = create.createMap("safe", 3, 5);
-			
-			c = createdMap.getClass(); 
-			packageName = c.getName(); 
-			className = c.getSimpleName();
-			
-			assertNotEquals("main.java.com.uom.factory.SafeMap", packageName);
-			assertNotEquals("SafeMap", className);
-		
 		
 	}
 	

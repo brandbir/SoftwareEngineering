@@ -1,7 +1,6 @@
 package test.java.com.uom.game;
 
 import static org.junit.Assert.*;
-
 import main.java.com.uom.factory.Map;
 import main.java.com.uom.factory.SafeMap;
 
@@ -25,6 +24,7 @@ public class SafeMapTest {
 	@Test
 	public void testingGenerate25()
 	{
+		System.out.println(System.currentTimeMillis());
 		map.setSize(3, 5);   //3 players with a mapsize of 5
 		
 		int maxWater = (int) Math.floor(5 * 5 * 0.1);

@@ -14,7 +14,7 @@ public class HazardousMapTest {
 	@Before
 	public void before() 
 	{
-		map = HazardousMap.getInstance(3, 5);
+		map = HazardousMap.getInstance(3, 5); 
 		  
 	}
 	
@@ -23,6 +23,8 @@ public class HazardousMapTest {
 		@Test
 		public void testingGenerate36()
 		{ 
+			System.out.println(System.currentTimeMillis());
+			
 			map.setSize(3, 6); //3 players with a mapsize of 6
 			
 			int minWater = (int) Math.ceil(6 * 6 * 0.25);

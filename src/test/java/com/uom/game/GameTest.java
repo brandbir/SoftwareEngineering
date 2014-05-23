@@ -243,7 +243,6 @@ public class GameTest
 		for(int i = 0; i < capitalAlphabet.length; i++)
 		{
 			Team team = new Team(i + 1);
-			System.out.println(team.getTeamLetter());
 			assertEquals(capitalAlphabet[i], team.getTeamLetter());
 		}
 	}
