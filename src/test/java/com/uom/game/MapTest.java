@@ -17,7 +17,7 @@ public class MapTest {
 		map = SafeMap.getInstance(3, 5);
 		map.generateMap();
 	}
-	
+	 
 	/**
 	 * testing limits
 	 */

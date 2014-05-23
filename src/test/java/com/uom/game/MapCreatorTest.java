@@ -30,11 +30,10 @@ public class MapCreatorTest {
 			
 			createdMap = create.createMap("safe", 3, 5);
 			
-			c = createdMap.getClass();
+			c = createdMap.getClass(); 
 			packageName = c.getName(); 
 			className = c.getSimpleName();
 			
-			System.out.println(packageName);
 			assertNotEquals("main.java.com.uom.factory.SafeMap", packageName);
 			assertNotEquals("SafeMap", className);
 		

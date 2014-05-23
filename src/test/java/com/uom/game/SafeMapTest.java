@@ -43,7 +43,7 @@ public class SafeMapTest {
 				if(map.getTileType(i, j).equals("#F0E86D"))
 					yellowBlocks++;
 			} 
-		}
+		} 
 		
 		assertEquals(yellowBlocks,1);
 		

@@ -235,7 +235,7 @@ public class Game
 						teams.get(i).deleteObservers();
 					}
 				}
-				for(Player player : tempPlayers)
+				for(Player player : tempPlayers) 
 				{
 					players.add(player);
 					if(teams.size() != 0)

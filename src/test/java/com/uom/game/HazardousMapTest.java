@@ -46,12 +46,12 @@ public class HazardousMapTest {
 			
 			assertEquals(yellowBlocks,1);
 			
-			boolean condition = false;
+			boolean condition = false; 
 			
 			if(blueBlocks <= maxWater && blueBlocks >= minWater)
 				condition = true;
 			
-			assertTrue(condition); 
+			assertTrue(condition);  
 			
 			
 		}
