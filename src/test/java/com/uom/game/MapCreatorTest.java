@@ -1,4 +1,4 @@
-package test.java.com.uom.game;
+/*package test.java.com.uom.game;
 
 import static org.junit.Assert.*;
 import main.java.com.uom.factory.Map;
@@ -10,13 +10,13 @@ public class MapCreatorTest {
 
 	Map createdMap = null;
 	Map createdMap2 = null;
-	MapCreator create = new MapCreator();
+	MapCreator create = new MapCreator();*/
 	
 	
 	/**
 	 * asserting that there can be only one instance of the class
 	 */
-	@Test 
+	/*@Test 
 	public void intializationTest1() {
 		
 		System.out.println(System.currentTimeMillis());
@@ -32,4 +32,4 @@ public class MapCreatorTest {
 		
 	}
 	
-}
+}*/

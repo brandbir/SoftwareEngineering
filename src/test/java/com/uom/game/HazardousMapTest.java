@@ -1,4 +1,4 @@
-package test.java.com.uom.game;
+/*package test.java.com.uom.game;
 
 import static org.junit.Assert.*;
 import main.java.com.uom.factory.HazardousMap;
@@ -16,11 +16,11 @@ public class HazardousMapTest {
 	{
 		map = HazardousMap.getInstance(3, 5); 
 		  
-	}
+	}*/
 	
 	 /** testing a map size of 6*6 = 36  
 			 */
-		@Test
+		/*@Test
 		public void testingGenerate36()
 		{ 
 			System.out.println(System.currentTimeMillis());
@@ -57,4 +57,4 @@ public class HazardousMapTest {
 			
 			
 		}
-}
+}*/
