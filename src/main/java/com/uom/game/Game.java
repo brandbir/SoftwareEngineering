@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import main.java.com.uom.factory.Map;
-import main.java.com.uom.factory.MapCreator;
+import main.java.com.uom.factory.MapFactory;
 
 public class Game
 {
@@ -445,7 +445,7 @@ public class Game
 			int size = Integer.parseInt(keyboard.nextLine());
 			System.out.println("Enter Safe or Hazardous Map : ");
 			String choice = keyboard.next();
-			MapCreator create = new MapCreator();
+			MapFactory create = new MapFactory();
 			map = create.createMap(choice, numOfPlayers, size);
 			//map.generateMap();
 			handlingPlayerEvents(map, players, true, false);	
