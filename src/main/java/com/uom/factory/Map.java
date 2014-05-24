@@ -32,7 +32,7 @@ public abstract class Map
 	
 	/**
 	 * Sets the size of the Map
-	 * @param size map size
+	 * @param  map size
 	 */
 	public boolean setSize(int players, int mapSize)
 	{

@@ -16,7 +16,9 @@ public class SafeMap extends Map
 			Map.mapInstance = new SafeMap(noOfPlayers, mapSize);
 		return Map.mapInstance;
 	}
-
+/**
+ * generating a map with a maximum of 10% water tiles 
+ */
 	public int generateMap() 
 	{
 		Random ran = new Random(); 

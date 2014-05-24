@@ -16,7 +16,9 @@ public class HazardousMap extends Map
 			Map.mapInstance = new HazardousMap(noOfPlayers, mapSize);
 		return Map.mapInstance;  
 	}
-	
+	/**
+	 * generating a map having a percentage of watertiles between 25% and 35%
+	 */
 	public int generateMap() 
 	{
 		Random ran = new Random();
