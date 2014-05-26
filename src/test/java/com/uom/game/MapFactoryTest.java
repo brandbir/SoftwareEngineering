@@ -34,6 +34,22 @@ public class MapFactoryTest {
 			assertEquals("main.java.com.uom.factory.SafeMap", packageName);
 			assertEquals("SafeMap", className); 
 			
+			Map.setInstanceNull();  //setting null
+			createdMap = create.createMap("hazardous", 3, 5);
+			
+			createdMap = SafeMap.getInstance(4, 5);
+			assertFalse(createdMap instanceof SafeMap);
+			assertTrue(createdMap instanceof HazardousMap);
+			
+			 c = createdMap.getClass(); 
+			packageName = c.getName(); 
+			className = c.getSimpleName();
+			
+			assertEquals("main.java.com.uom.factory.HazardousMap", packageName);
+			assertEquals("HazardousMap", className); 
+			
+			
+			
 		
 	} 
 	
