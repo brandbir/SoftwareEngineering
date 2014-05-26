@@ -20,6 +20,7 @@ public class MapFactoryTest {
 	@Test 
 	public void intializationTest1() {
 		
+			Map.setInstanceNull();
 			createdMap = create.createMap("safe", 3, 5);
 			
 			createdMap = HazardousMap.getInstance(4, 5);
@@ -34,6 +35,6 @@ public class MapFactoryTest {
 			assertEquals("SafeMap", className); 
 			
 		
-	}
+	} 
 	
 }
