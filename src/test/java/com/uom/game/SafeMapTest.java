@@ -1,6 +1,8 @@
 package test.java.com.uom.game;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import main.java.com.uom.factory.Map;
 import main.java.com.uom.factory.SafeMap;
 
@@ -9,14 +11,16 @@ import org.junit.Test;
 
 public class SafeMapTest {
 
-	Map map;
+	Map map = null;
 	
 	@Before
-	public void before() 
+	public void before() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException 
 	{
+		Map.setInstanceNull();
+		assertFalse(map instanceof SafeMap);
 		map = SafeMap.getInstance(3, 5);
-		
-	}
+		assertTrue(map instanceof SafeMap);
+	} 
 	
 	  
 	 /** testing a map size of 5*5 = 25  

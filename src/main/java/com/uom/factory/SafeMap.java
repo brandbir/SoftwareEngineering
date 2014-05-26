@@ -9,7 +9,7 @@ public class SafeMap extends Map
 	{
 		super(noOfPlayers, mapSize);
 	}  
-	
+	 
 	public static Map getInstance(int noOfPlayers, int mapSize)
 	{
 		if(Map.mapInstance == null) 

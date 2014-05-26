@@ -18,11 +18,16 @@ public abstract class Map
 	public static final int TILE_INVALID	= -1;
 	public static final int TILE_GRASS		= 0;
 	public static final int TILE_WATER		= 1;
-	public static final int TILE_TREASURE	= 2;
+	public static final int TILE_TREASURE	= 2; 
 	public static final int TILE_HIDDEN		= 3;
 
 	//creating it for singleton pattern
 	protected static Map mapInstance = null;   
+	
+	public static void setInstanceNull()
+	{
+		mapInstance = null;
+	}
 	
 	protected Map(int noOfPlayers, int mapSize)
 	{
