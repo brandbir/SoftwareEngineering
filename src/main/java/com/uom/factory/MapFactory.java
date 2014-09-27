@@ -16,19 +16,19 @@ public class MapFactory {
 
 	public MapFactory findCreatorForType(String type)
 	{
-		if(type.equals("safe"))  
+		if(type.equals("safe") || type.equals("Safe") || type.equals("SAFE"))  
 		{
-			 return new SafeMapCreator(); 				//SafeMap Creator is a concrete product
+			 return new SafeMapCreator(); //SafeMap Creator is a concrete product
 		}
-		else if(type.equals("hazardous"))
+		else if(type.equals("hazardous") || type.equals("Hazardous") || type.equals("HAZARDOUS"))
 		{
-			return new HazardousMapCreator();   //Hazardous Map is a concrete product
+			return new HazardousMapCreator();//Hazardous Map is a concrete product
 		}
 		return null;
 	}
 	
 	public Map createMap(int noOfPlayers, int mapSize) {
-		return null;  
+		return null;
 	}
 
 }
